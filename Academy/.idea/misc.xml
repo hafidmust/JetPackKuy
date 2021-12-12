@@ -9,8 +9,21 @@
         <entry key="app/src/main/res/drawable/ic_error.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_loading.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/activity_course_reader.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_detail_course.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10507246376811594" />
+        <entry key="app/src/main/res/layout/content_detail_course.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_academy.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.10507246376811594" />
+        <entry key="app/src/main/res/layout/fragment_module_content.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_module_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/items_academy.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/items_bookmark.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/items_module_list.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/items_module_list_CUSTOM.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/items_module_list_custom.xml" value="0.22" />
       </map>
     </option>
   </component>
