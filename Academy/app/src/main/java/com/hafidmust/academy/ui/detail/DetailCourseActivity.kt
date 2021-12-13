@@ -22,38 +22,40 @@ import com.hafidmust.academy.utils.DataDummy
 
 class DetailCourseActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         const val EXTRA_COURSE = "extra_course"
     }
 
-    private lateinit var binding: ContentDetailCourseBinding
+    private lateinit var detailContentBinding: ContentDetailCourseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val activityDetailCourseBinding = ActivityDetailCourseBinding.inflate(layoutInflater)
+        detailContentBinding = activityDetailCourseBinding.detailContent
 
-        binding = activityDetailCourseBinding.detailContent
-        setContentView(binding.root)
+        setContentView(activityDetailCourseBinding.root)
 
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val adapter = DetailCourseAdapter()
+
         val extras = intent.extras
-        if(extras != null){
+        if (extras != null) {
             val courseId = extras.getString(EXTRA_COURSE)
-            if (courseId!= null){
+            if (courseId != null) {
                 val modules = DataDummy.generateDummyModules(courseId)
                 adapter.setModules(modules)
-                for (course in DataDummy.generateDummyCouse()){
-                    if (course.courseId == courseId){
+                for (course in DataDummy.generateDummyCouse()) {
+                    if (course.courseId == courseId) {
                         populateCourse(course)
                     }
                 }
             }
         }
-        with(binding.rvModule){
+
+        with(detailContentBinding.rvModule) {
             isNestedScrollingEnabled = false
             layoutManager = LinearLayoutManager(this@DetailCourseActivity)
             setHasFixedSize(true)
@@ -61,24 +63,21 @@ class DetailCourseActivity : AppCompatActivity() {
             val dividerItemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
             addItemDecoration(dividerItemDecoration)
         }
-
-
     }
 
     private fun populateCourse(courseEntity: CourseEntity) {
-        binding.textTitle.text = courseEntity.title
-        binding.textDescription.text = courseEntity.description
-        binding.textDate.text = resources.getString(R.string.deadline_date, courseEntity.deadline)
+        detailContentBinding.textTitle.text = courseEntity.title
+        detailContentBinding.textDescription.text = courseEntity.description
+        detailContentBinding.textDate.text = resources.getString(R.string.deadline_date, courseEntity.deadline)
 
         Glide.with(this)
             .load(courseEntity.imagePath)
             .transform(RoundedCorners(20))
-            .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_loading)
+            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                 .error(R.drawable.ic_error))
-            .into(binding.imagePoster)
+            .into(detailContentBinding.imagePoster)
 
-        binding.btnStart.setOnClickListener {
+        detailContentBinding.btnStart.setOnClickListener {
             val intent = Intent(this@DetailCourseActivity, CourseReaderActivity::class.java)
             intent.putExtra(CourseReaderActivity.EXTRA_COURSE_ID, courseEntity.courseId)
             startActivity(intent)

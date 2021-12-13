@@ -39,7 +39,7 @@ class BookmarkAdapter(private val callback: BookmarkFragmentCallback) : Recycler
                 tvItemDate.text = itemView.resources.getString(R.string.deadline_date, course.deadline)
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailCourseActivity::class.java)
-//                    intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.courseId)
+                    intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.courseId)
                     itemView.context.startActivity(intent)
                 }
                 imgShare.setOnClickListener { callback.onShareClick(course) }
