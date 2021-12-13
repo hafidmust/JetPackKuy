@@ -9,8 +9,7 @@ import com.hafidmust.academy.databinding.ItemsModuleListCustomBinding
 class ModuleListAdapter internal constructor(private val listener: MyAdapterClickListener) : RecyclerView.Adapter<ModuleListAdapter.ModuleViewHolder>() {
     private val listModules = ArrayList<ModuleEntity>()
 
-    internal fun setModules(modules: List<ModuleEntity>?) {
-        if (modules == null) return
+    internal fun setModules(modules: List<ModuleEntity>) {
         this.listModules.clear()
         this.listModules.addAll(modules)
     }
