@@ -23,7 +23,7 @@ data class TvEntity(
 	val genreIds: List<Int?>? = null,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String? = null,
+	val posterPath: Int? = null,
 
 	@field:SerializedName("backdrop_path")
 	val backdropPath: String? = null,
