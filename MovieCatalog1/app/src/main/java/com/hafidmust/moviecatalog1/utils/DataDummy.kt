@@ -11,8 +11,8 @@ object DataDummy {
             MovieEntity(
                 id = 1,
                 posterPath = R.drawable.poster_aquaman,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Aquaman",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -20,8 +20,8 @@ object DataDummy {
             MovieEntity(
                 id = 2,
                 posterPath = R.drawable.poster_bohemian,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Bohemian",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -30,8 +30,8 @@ object DataDummy {
             MovieEntity(
                 id = 3,
                 posterPath = R.drawable.poster_creed,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Creed",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -39,8 +39,8 @@ object DataDummy {
             MovieEntity(
                 id = 4,
                 posterPath = R.drawable.poster_glass,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Glass",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -48,8 +48,8 @@ object DataDummy {
             MovieEntity(
                 id = 5,
                 posterPath = R.drawable.poster_how_to_train,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "How to Train",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -66,8 +66,8 @@ object DataDummy {
             MovieEntity(
                 id = 7,
                 posterPath = R.drawable.poster_overlord,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Overlord",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -75,7 +75,7 @@ object DataDummy {
             MovieEntity(
                 id = 8,
                 posterPath = R.drawable.poster_ralph,
-                originalTitle = "",
+                originalTitle = "Ralph",
                 overview = "",
                 voteAverage = 8.0
             )
@@ -84,8 +84,8 @@ object DataDummy {
             MovieEntity(
                 id = 9,
                 posterPath = R.drawable.poster_robin_hood,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Robin Hood",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -93,8 +93,8 @@ object DataDummy {
             MovieEntity(
                 id = 10,
                 posterPath = R.drawable.poster_spiderman,
-                originalTitle = "",
-                overview = "",
+                originalTitle = "Spiderman",
+                overview = "lorem",
                 voteAverage = 8.0
             )
         )
@@ -106,7 +106,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_arrow,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -115,7 +115,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_doom_patrol,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -124,7 +124,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_dragon_ball,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -133,7 +133,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_family_guy,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -142,7 +142,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_flash,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -151,7 +151,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_god,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -160,7 +160,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_gotham,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -169,7 +169,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_grey_anatomy,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -178,7 +178,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_naruto_shipudden,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
@@ -187,7 +187,7 @@ object DataDummy {
         tvs.add(
             TvEntity(
                 id = 1,
-                posterPath = R.drawable.,
+                posterPath = R.drawable.poster_the_umbrella,
                 originalTitle = "",
                 overview = "",
                 voteAverage = 8.0
