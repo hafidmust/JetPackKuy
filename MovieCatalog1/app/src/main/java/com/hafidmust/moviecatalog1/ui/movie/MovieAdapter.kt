@@ -7,22 +7,30 @@ import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalog1.data.movie.MovieEntity
 import com.hafidmust.moviecatalog1.databinding.ListItemsBinding
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private var listMovies = ArrayList<MovieEntity>()
 
     fun setMovies(movies : List<MovieEntity>){
         this.listMovies.clear()
         this.listMovies.addAll(movies)
     }
-    class ViewHolder(private val binding : ListItemsBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding : ListItemsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movies : MovieEntity){
             with(binding){
                 Glide.with(itemView.context)
                     .load(movies.posterPath)
                     .into(imgPoster)
                 binding.tvContentTitle.text = movies.title
+                binding.root.setOnClickListener {
+                    clickListener.doClick(movies)
+                }
             }
         }
+    }
+
+    interface ClickListener {
+        fun doClick(item : MovieEntity)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.ViewHolder {
