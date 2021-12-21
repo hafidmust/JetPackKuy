@@ -38,11 +38,17 @@ data class MovieEntity(
 	val voteAverage: Double? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: String? = null,
 
 	@field:SerializedName("adult")
 	val adult: Boolean? = null,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null
+	val voteCount: Int? = null,
+
+	@field:SerializedName("category")
+	val category: String? = null,
+	@field:SerializedName("duration")
+	val duration: String? = null,
+
 )

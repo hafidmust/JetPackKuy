@@ -38,7 +38,7 @@ data class TvEntity(
 	val voteAverage: Double? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: String? = null,
 
 	@field:SerializedName("adult")
 	val adult: Boolean? = null,
