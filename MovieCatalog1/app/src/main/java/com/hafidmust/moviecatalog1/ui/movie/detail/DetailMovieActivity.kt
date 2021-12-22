@@ -2,6 +2,8 @@ package com.hafidmust.moviecatalog1.ui.movie.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalog1.R
 import com.hafidmust.moviecatalog1.data.movie.MovieEntity
@@ -19,17 +21,15 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
+
         val extras = intent.extras
         if (extras != null){
             val movieId = extras.getString(EXTRA_ID)
             if (movieId != null){
-                for(movie in DataDummy.generateDumyMovie()){
-                    if (movie.id == movieId){
-                        populateMovie(movie)
-                    }
-                }
+                viewModel.setSelectedMovie(movieId)
+                populateMovie(viewModel.getMovies())
             }
-
         }
     }
 
