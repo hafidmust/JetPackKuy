@@ -14,6 +14,7 @@ import com.hafidmust.academy.databinding.FragmentModuleListBinding
 import com.hafidmust.academy.ui.reader.CourseReaderActivity
 import com.hafidmust.academy.ui.reader.CourseReaderCallback
 import com.hafidmust.academy.ui.reader.CourseReaderViewModel
+import com.hafidmust.academy.viewmodel.ViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,8 +44,8 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
         populateRecyclerView(viewModel.getModules())
     }

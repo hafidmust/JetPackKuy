@@ -13,6 +13,7 @@ import com.hafidmust.academy.data.CourseEntity
 import com.hafidmust.academy.databinding.FragmentBookmarkBinding
 import com.hafidmust.academy.databinding.FragmentModuleContentBinding
 import com.hafidmust.academy.utils.DataDummy
+import com.hafidmust.academy.viewmodel.ViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +42,8 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity!= null){
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[BookmarkViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
             val courses = viewModel.getBookmarks()
             val adapter = BookmarkAdapter(this)
             adapter.setCourses(courses)
