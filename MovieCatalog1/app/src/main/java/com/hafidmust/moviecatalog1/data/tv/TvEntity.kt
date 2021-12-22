@@ -28,8 +28,8 @@ data class TvEntity(
 	@field:SerializedName("backdrop_path")
 	val backdropPath: String? = null,
 
-	@field:SerializedName("release_date")
-	val releaseDate: String? = null,
+	@field:SerializedName("season")
+	val season: String? = null,
 
 	@field:SerializedName("popularity")
 	val popularity: Double? = null,
@@ -44,5 +44,11 @@ data class TvEntity(
 	val adult: Boolean? = null,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null
+	val voteCount: Int? = null,
+
+	@field:SerializedName("category")
+	val category: String? = null,
+	@field:SerializedName("duration")
+	val duration: String? = null,
+
 )
