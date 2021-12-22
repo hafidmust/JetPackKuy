@@ -20,7 +20,6 @@ class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<Mov
                 Glide.with(itemView.context)
                     .load(movies.posterPath)
                     .into(imgPoster)
-                binding.tvContentTitle.text = movies.title
                 binding.root.setOnClickListener {
                     clickListener.doClick(movies)
                 }

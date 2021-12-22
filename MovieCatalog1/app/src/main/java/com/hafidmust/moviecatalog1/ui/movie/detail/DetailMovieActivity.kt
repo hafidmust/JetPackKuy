@@ -20,6 +20,9 @@ class DetailMovieActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        binding.imageback.setOnClickListener {
+            onBackPressed()
+        }
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
 
@@ -38,6 +41,7 @@ class DetailMovieActivity : AppCompatActivity() {
         binding.tvcontentdesc.text = movieEntity.overview
         binding.contentrelease.text = movieEntity.releaseDate
         binding.contentcategory.text = movieEntity.category
+        binding.ratingbar.numStars = movieEntity.voteAverage ?:0
         Glide.with(this)
             .load(movieEntity.posterPath)
             .into(binding.contentiamgeposter)

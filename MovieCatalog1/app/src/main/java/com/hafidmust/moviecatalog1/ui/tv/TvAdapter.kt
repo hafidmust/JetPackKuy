@@ -21,7 +21,6 @@ class TvAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<TvAdap
                 Glide.with(itemView.context)
                     .load(tv.posterPath)
                     .into(imgPoster)
-                binding.tvContentTitle.text = tv.title
                 binding.root.setOnClickListener {
                     clickListener.doClick(tv)
                 }

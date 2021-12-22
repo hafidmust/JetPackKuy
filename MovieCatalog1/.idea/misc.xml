@@ -7,9 +7,10 @@
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_detail_tv.xml" value="0.1693840579710145" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10507246376811594" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_tv_show.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/list_items.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/list_items.xml" value="0.32386363636363635" />
       </map>
     </option>
   </component>

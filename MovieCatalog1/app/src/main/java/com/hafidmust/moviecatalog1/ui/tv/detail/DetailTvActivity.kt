@@ -19,6 +19,10 @@ class DetailTvActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.imageback.setOnClickListener {
+            onBackPressed()
+        }
+
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailTvViewModel::class.java]
 
         val extras = intent.extras
@@ -35,6 +39,7 @@ class DetailTvActivity : AppCompatActivity() {
         binding.contenttitle.text = tvs.originalTitle
         binding.tvcontentdesc.text = tvs.overview
         binding.contentrelease.text = tvs.season
+        binding.ratingbar.numStars = tvs.voteAverage ?:0
 //        binding.contentcategory.text = tvs.category
         Glide.with(this)
             .load(tvs.posterPath)
