@@ -1,12 +1,18 @@
 package com.hafidmust.academy.ui.reader
 
 import com.hafidmust.academy.data.ContentEntity
+import com.hafidmust.academy.data.source.AcademyRepository
 import com.hafidmust.academy.utils.DataDummy
 import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class CourseReaderViewModelTest {
     private lateinit var viewModel: CourseReaderViewModel
 
@@ -15,9 +21,12 @@ class CourseReaderViewModelTest {
     private val dummyModules = DataDummy.generateDummyModules(courseId)
     private val moduleId = dummyModules[0].moduleId
 
+    @Mock
+    private lateinit var academyRepository: AcademyRepository
+
     @Before
     fun setUp() {
-        viewModel = CourseReaderViewModel()
+        viewModel = CourseReaderViewModel(academyRepository)
         viewModel.setSelectedCourse(courseId)
         viewModel.setSelectedModule(moduleId)
 
@@ -27,14 +36,18 @@ class CourseReaderViewModelTest {
 
     @Test
     fun getModules() {
+        Mockito.`when`(academyRepository.getAllModulesByCourse(courseId)).thenReturn(dummyModules)
         val moduleEntity = viewModel.getModules()
+        Mockito.verify(academyRepository).getAllModulesByCourse(courseId)
         assertNotNull(moduleEntity)
         assertEquals(7, moduleEntity.size.toLong())
     }
 
     @Test
     fun getSelectedModule() {
+        Mockito.`when`(academyRepository.getContent(courseId,moduleId)).thenReturn(dummyModules[0])
         val moduleEntity = viewModel.getSelectedModule()
+        Mockito.verify(academyRepository).getContent(courseId, moduleId)
         assertNotNull(moduleEntity)
         val contentEntity = moduleEntity.contentEntity
         assertNotNull(contentEntity)
