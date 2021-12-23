@@ -40,7 +40,7 @@ class DetailTvActivity : AppCompatActivity() {
         binding.tvcontentdesc.text = tvs.overview
         binding.contentrelease.text = tvs.season
         binding.ratingbar.numStars = tvs.voteAverage ?:0
-//        binding.contentcategory.text = tvs.category
+        binding.contentcategory.text = tvs.category
         Glide.with(this)
             .load(tvs.posterPath)
             .into(binding.contentiamgeposter)
