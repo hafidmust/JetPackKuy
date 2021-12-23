@@ -34,6 +34,11 @@ class MainActivityTest{
         onView(withId(R.id.contenttitle)).check(matches(withText(dummyMovie[0].originalTitle)))
         onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
         onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyMovie[0].overview)))
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(withText(dummyMovie[0].releaseDate)))
+        onView(withId(R.id.contentcategory)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentcategory)).check(matches(withText(dummyMovie[0].category)))
+
     }
 
     @Test
@@ -53,5 +58,10 @@ class MainActivityTest{
         onView(withId(R.id.contenttitle)).check(matches(withText(dummyTv[0].originalTitle)))
         onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
         onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyTv[0].overview)))
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(withText(dummyTv[0].season)))
+        onView(withId(R.id.contentcategory)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentcategory)).check(matches(withText(dummyTv[0].category)))
+
     }
 }
