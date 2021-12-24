@@ -1,4 +1,4 @@
-package com.hafidmust.academy
+package com.hafidmust.moviecatalogue2
 
 import org.junit.Test
 
