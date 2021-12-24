@@ -1,5 +1,6 @@
 package com.hafidmust.academy.ui.academy
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,7 +35,14 @@ class AcademyFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
             val course = viewModel.getCourses()
             val academyAdapter = AcademyAdapter()
-            academyAdapter.setCourses(course)
+
+
+            fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getCourses().observe(viewLifecycleOwner,{
+                fragmentAcademyBinding.progressBar.visibility = View.GONE
+                academyAdapter.setCourses(it)
+                academyAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentAcademyBinding.rvAcademy){
                 layoutManager = LinearLayoutManager(context)

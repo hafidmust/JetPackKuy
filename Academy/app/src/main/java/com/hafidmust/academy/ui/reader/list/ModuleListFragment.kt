@@ -16,11 +16,6 @@ import com.hafidmust.academy.ui.reader.CourseReaderCallback
 import com.hafidmust.academy.ui.reader.CourseReaderViewModel
 import com.hafidmust.academy.viewmodel.ViewModelFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 
 class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
@@ -47,7 +42,12 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
-        populateRecyclerView(viewModel.getModules())
+        fragmentModuleListBinding.progressBar.visibility = View.VISIBLE
+        viewModel.getModules().observe(viewLifecycleOwner,{
+            modules->
+            fragmentModuleListBinding.progressBar.visibility = View.GONE
+            populateRecyclerView(modules)
+        })
     }
 
     private fun populateRecyclerView(modules: List<ModuleEntity>) {
