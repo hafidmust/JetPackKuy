@@ -4,18 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hafidmust.moviecatalogue2.data.source.local.MovieEntity
 import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItem
 import com.hafidmust.moviecatalogue2.databinding.ListItemsBinding
 
 class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    private var listMovies = ArrayList<ResultsItem>()
+    private var listMovies = ArrayList<MovieEntity>()
 
-    fun setMovies(movies : List<ResultsItem>){
+    fun setMovies(movies : List<MovieEntity>){
         this.listMovies.clear()
         this.listMovies.addAll(movies)
     }
     inner class ViewHolder(private val binding : ListItemsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies : ResultsItem){
+        fun bind(movies : MovieEntity){
             with(binding){
                 Glide.with(itemView.context)
                     .load("https://image.tmdb.org/t/p/original${movies.posterPath}")
@@ -28,7 +29,7 @@ class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<Mov
     }
 
     interface ClickListener {
-        fun doClick(item : ResultsItem)
+        fun doClick(item : MovieEntity)
 
     }
 
