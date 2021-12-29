@@ -12,7 +12,9 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "API_KEY", "\"052a0efe01d590db2b8e3aac840d8a92\""
+        buildConfigField("String", "API_KEY", '"052a0efe01d590db2b8e3aac840d8a92"')
+        buildConfigField "String", "POSTER_PATH", "\"https://image.tmdb.org/t/p/w500/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

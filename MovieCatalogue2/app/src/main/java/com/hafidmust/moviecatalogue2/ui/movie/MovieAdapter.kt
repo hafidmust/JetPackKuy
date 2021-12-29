@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hafidmust.moviecatalogue2.BuildConfig
 import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue2.databinding.ListItemsBinding
 
@@ -18,7 +19,7 @@ class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<Mov
         fun bind(movies : MovieEntity){
             with(binding){
                 Glide.with(itemView.context)
-                    .load("https://image.tmdb.org/t/p/original${movies.posterPath}")
+                    .load(BuildConfig.POSTER_PATH+movies.posterPath)
                     .into(imgPoster)
                 binding.root.setOnClickListener {
                     clickListener.doClick(movies)

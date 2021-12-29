@@ -22,7 +22,7 @@ class RemoteDataSource {
     }
 
     fun getDiscoverMovies(callback : LoadMoviesCallback){
-        val client = ApiConfig.getApiService().getDiscoverMovie("052a0efe01d590db2b8e3aac840d8a92",1)
+        val client = ApiConfig.getApiService().getDiscoverMovie(BuildConfig.API_KEY,1)
         client.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 callback.onMoviesLoaded(response.body()?.results)
@@ -35,7 +35,7 @@ class RemoteDataSource {
     }
 
     fun getDetailMovies(callback : LoadDetailMoviesCallback, movieId : Int){
-        val client = ApiConfig.getApiService().getDetailMovie(movieId, "052a0efe01d590db2b8e3aac840d8a92")
+        val client = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY)
         client.enqueue(object : Callback<DetailMovieResponse>{
             override fun onResponse(
                 call: Call<DetailMovieResponse>,
