@@ -1,6 +1,8 @@
 package com.hafidmust.moviecatalogue2.data.source.remote
 
 import android.util.Log
+import com.hafidmust.moviecatalogue2.BuildConfig
+import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailMovieResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.MovieResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItem
 import com.hafidmust.moviecatalogue2.network.ApiConfig
@@ -30,6 +32,27 @@ class RemoteDataSource {
                 Log.e("RemoteDataSource","getDiscoverMovies ${t.message}")
             }
         })
+    }
+
+    fun getDetailMovies(callback : LoadDetailMoviesCallback, movieId : Int){
+        val client = ApiConfig.getApiService().getDetailMovie(movieId, "052a0efe01d590db2b8e3aac840d8a92")
+        client.enqueue(object : Callback<DetailMovieResponse>{
+            override fun onResponse(
+                call: Call<DetailMovieResponse>,
+                response: Response<DetailMovieResponse>
+            ) {
+                callback.onDetailMovieLoaded(response.body())
+            }
+
+            override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
+                Log.e("RemoteDataSource","getDetailMovies ${t.message}")
+            }
+        })
+
+    }
+
+    interface LoadDetailMoviesCallback {
+        fun onDetailMovieLoaded(detailMovie : DetailMovieResponse?)
     }
 
     interface LoadMoviesCallback {

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hafidmust.moviecatalogue2.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue2.di.Injection
+import com.hafidmust.moviecatalogue2.ui.detail.DetailViewModel
 import com.hafidmust.moviecatalogue2.ui.movie.MovieViewModel
 
 class ViewModelFactory private constructor(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModelProvider.NewInstanceFactory(){
@@ -22,6 +23,9 @@ class ViewModelFactory private constructor(private val movieCatalogueRepository:
         return when{
             modelClass.isAssignableFrom(MovieViewModel::class.java)->{
                 MovieViewModel(movieCatalogueRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java)->{
+                DetailViewModel(movieCatalogueRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel : "+modelClass.name)
         }

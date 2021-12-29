@@ -1,4 +1,4 @@
-package com.hafidmust.moviecatalogue2.data.source.local
+package com.hafidmust.moviecatalogue2.data.source.local.entity
 
 import com.google.gson.annotations.SerializedName
 
