@@ -5,5 +5,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
+    <ImageView
+        android:id="@+id/imageback"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_back"/>
+
+    <ImageView
+        android:id="@+id/contentiamgeposter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/tvcontentdesc"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/contenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="JUDUL FILM"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/contentvote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.CircularProgressIndicator"
+        android:id="@+id/contentvote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/viewcenter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <View
+        android:id="@+id/viewcenter"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <View
+        android:id="@+id/bgShape"
+        app:layout_constraintTop_toBottomOf="@id/viewcenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shape_detail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/labeldesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/viewcenter"
+        android:text="Description"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvcontentdesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="3"
+        android:text="Lorem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labeldesc" />
+
+    <TextView
+        android:id="@+id/labelrelease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rilis"
+        app:layout_constraintTop_toBottomOf="@id/tvcontentdesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/contentrelease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="12/12/2021"
+        app:layout_constraintTop_toBottomOf="@id/labelrelease"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/labelcategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kategori"
+        app:layout_constraintTop_toBottomOf="@id/contentrelease"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/contentcategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adventure, Sci-Fi"
+        app:layout_constraintTop_toBottomOf="@id/labelcategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
