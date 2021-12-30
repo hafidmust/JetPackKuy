@@ -2,11 +2,12 @@ package com.hafidmust.moviecatalogue2.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailMovieEntity
+import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailEntity
 import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.data.source.remote.RemoteDataSource
 import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailMovieResponse
+import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailTvShowResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItem
 import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItemTv
 
@@ -58,13 +59,26 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
         return result
     }
 
-    override fun getDetailMovie(MovieId: Int): LiveData<DetailMovieEntity> {
-        val detailResult = MutableLiveData<DetailMovieEntity>()
+    override fun getDetailTvShow(TvId: Int): LiveData<DetailEntity> {
+        val detailTv = MutableLiveData<DetailEntity>()
+        remoteDataSource.getDetailTvShow(object : RemoteDataSource.LoadDetailTvShowCallback{
+            override fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse) {
+                with(detailTvShowResponse){
+                    val detail = DetailEntity(idEntity = id,originalTitle = originalName,overview = overview,releaseDate = firstAirDate,voteAverage = voteAverage,posterPath = posterPath)
+                    detailTv.postValue(detail)
+                }
+            }
+        },TvId)
+        return detailTv
+    }
+
+    override fun getDetailMovie(MovieId: Int): LiveData<DetailEntity> {
+        val detailResult = MutableLiveData<DetailEntity>()
         remoteDataSource.getDetailMovies(object : RemoteDataSource.LoadDetailMoviesCallback {
             override fun onDetailMovieLoaded(detailMovie: DetailMovieResponse?) {
                 if (detailMovie != null) {
                     with(detailMovie){
-                        val detail = DetailMovieEntity(id,originalTitle, overview, releaseDate, voteAverage, posterPath)
+                        val detail = DetailEntity(id,originalTitle, overview, releaseDate, voteAverage, posterPath)
                         detailResult.postValue(detail)
                     }
                 }
@@ -72,6 +86,7 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
         },MovieId)
         return detailResult
     }
+
 
 
 }

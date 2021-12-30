@@ -3,7 +3,7 @@ package com.hafidmust.moviecatalogue2.data.source.local.entity
 import com.google.gson.annotations.SerializedName
 
 
-data class DetailMovieEntity(
+data class DetailEntity(
     @field:SerializedName("id")
     val idEntity: Int,
     @field:SerializedName("original_title")

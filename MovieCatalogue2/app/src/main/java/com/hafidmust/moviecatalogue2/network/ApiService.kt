@@ -1,6 +1,7 @@
 package com.hafidmust.moviecatalogue2.network
 
 import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailMovieResponse
+import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailTvShowResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.MovieResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.TvShowResponse
 import retrofit2.Call
@@ -28,4 +29,9 @@ interface ApiService {
         @Query("page") page : Int
     ) : Call<TvShowResponse>
 
+    @GET("tv/{id}")
+    fun getDetailTvShow(
+        @Path("id") id : Int,
+        @Query("api_key") apiKey : String
+    ) : Call<DetailTvShowResponse>
 }

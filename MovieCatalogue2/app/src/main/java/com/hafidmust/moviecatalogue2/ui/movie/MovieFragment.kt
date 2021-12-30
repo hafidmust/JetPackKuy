@@ -37,6 +37,7 @@ class MovieFragment : Fragment() {
                         activity, DetailActivity::class.java
                     ).apply {
                         putExtra(DetailActivity.EXTRA_ID, item.id)
+                        putExtra(DetailActivity.EXTRA_TYPE, "movie")
                     }
                     startActivity(intent)
                 }

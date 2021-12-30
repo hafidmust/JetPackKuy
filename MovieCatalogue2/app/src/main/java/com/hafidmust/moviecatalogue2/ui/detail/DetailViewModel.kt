@@ -3,9 +3,20 @@ package com.hafidmust.moviecatalogue2.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hafidmust.moviecatalogue2.data.source.MovieCatalogueRepository
-import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailMovieEntity
+import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailEntity
 
 class DetailViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModel() {
+    lateinit var setData : LiveData<DetailEntity>
+    fun getData(id : Int, type : String): LiveData<DetailEntity>{
+        when(type){
+            "movie" ->{
+                setData = movieCatalogueRepository.getDetailMovie(id)
+            }
+            "tv" -> {
+                setData = movieCatalogueRepository.getDetailTvShow(id)
+            }
+        }
+        return setData
+    }
 
-    fun getDataMovies(id : Int) : LiveData<DetailMovieEntity> = movieCatalogueRepository.getDetailMovie(id)
 }

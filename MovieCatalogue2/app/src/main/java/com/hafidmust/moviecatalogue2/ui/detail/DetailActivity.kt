@@ -2,11 +2,9 @@ package com.hafidmust.moviecatalogue2.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.hafidmust.moviecatalogue2.R
-import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailMovieEntity
+import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailEntity
 import com.hafidmust.moviecatalogue2.databinding.ActivityDetailBinding
 import com.hafidmust.moviecatalogue2.viewmodel.ViewModelFactory
 import kotlin.math.roundToInt
@@ -16,6 +14,7 @@ class DetailActivity : AppCompatActivity() {
 
     companion object{
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_TYPE = "extra_type"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +29,18 @@ class DetailActivity : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null){
             val dataId = extras.getInt(EXTRA_ID,0)
-            viewModel.getDataMovies(dataId).observe(this,{detail ->
-                populateDetail(detail)
-            })
+            val getType = extras.getString(EXTRA_TYPE)
+            if (getType != null) {
+                viewModel.getData(dataId,getType)
+                viewModel.setData.observe(this,{
+                    populateDetail(it)
+                })
+
+            }
         }
     }
 
-    private fun populateDetail(detail: DetailMovieEntity?) {
+    private fun populateDetail(detail: DetailEntity?) {
         binding.contenttitle.text = detail?.originalTitle
         binding.tvcontentdesc.text = detail?.overview
         binding.contentrelease.text = detail?.releaseDate

@@ -1,5 +1,6 @@
 package com.hafidmust.moviecatalogue2.ui.tv
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.databinding.FragmentTvBinding
+import com.hafidmust.moviecatalogue2.ui.detail.DetailActivity
 import com.hafidmust.moviecatalogue2.viewmodel.ViewModelFactory
 
 class TvFragment : Fragment() {
@@ -33,7 +35,13 @@ class TvFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
             val tvAdapter = TvAdapter(object : TvAdapter.ClickListener{
                 override fun doClick(item: TvShowEntity) {
-
+                    val intent = Intent(
+                        activity, DetailActivity::class.java
+                    ).apply {
+                        putExtra(DetailActivity.EXTRA_ID, item.id)
+                        putExtra(DetailActivity.EXTRA_TYPE,"tv")
+                    }
+                    startActivity(intent)
                 }
             })
             viewModel.getDiscoverTv().observe(viewLifecycleOwner, {tv ->

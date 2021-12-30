@@ -64,7 +64,24 @@ class RemoteDataSource {
                 Log.e("RemoteDataSource","getDetailMovies ${t.message}")
             }
         })
+    }
+    fun getDetailTvShow(callback : LoadDetailTvShowCallback, tvId : Int){
+        val client = ApiConfig.getApiService().getDetailTvShow(tvId, BuildConfig.API_KEY)
+        client.enqueue(object : Callback<DetailTvShowResponse>{
+            override fun onResponse(
+                call: Call<DetailTvShowResponse>,
+                response: Response<DetailTvShowResponse>
+            ) {
+                response.body()?.let { callback.onDetailTvLoaded(it) }
+            }
 
+            override fun onFailure(call: Call<DetailTvShowResponse>, t: Throwable) {
+                Log.e("RemoteDataSource","getDetailTv ${t.message}")
+            }
+        })
+    }
+    interface LoadDetailTvShowCallback{
+        fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse)
     }
 
     interface LoadDetailMoviesCallback {
