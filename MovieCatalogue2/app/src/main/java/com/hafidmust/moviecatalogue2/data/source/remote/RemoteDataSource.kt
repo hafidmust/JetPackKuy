@@ -2,9 +2,7 @@ package com.hafidmust.moviecatalogue2.data.source.remote
 
 import android.util.Log
 import com.hafidmust.moviecatalogue2.BuildConfig
-import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailMovieResponse
-import com.hafidmust.moviecatalogue2.data.source.remote.response.MovieResponse
-import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItem
+import com.hafidmust.moviecatalogue2.data.source.remote.response.*
 import com.hafidmust.moviecatalogue2.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,6 +32,24 @@ class RemoteDataSource {
         })
     }
 
+    fun getDiscoverTv(callback : LoadTvCallback){
+        val client = ApiConfig.getApiService().getDiscoverTv(BuildConfig.API_KEY,1)
+        client.enqueue(object : Callback<TvShowResponse>{
+            override fun onResponse(
+                call: Call<TvShowResponse>,
+                response: Response<TvShowResponse>
+            ) {
+                callback.onTvLoaded(response.body()?.results)
+            }
+
+            override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
+                Log.e("RemoteDataSource","getDiscoverTv : ${t.message}")
+            }
+        })
+    }
+
+
+
     fun getDetailMovies(callback : LoadDetailMoviesCallback, movieId : Int){
         val client = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY)
         client.enqueue(object : Callback<DetailMovieResponse>{
@@ -57,6 +73,10 @@ class RemoteDataSource {
 
     interface LoadMoviesCallback {
         fun onMoviesLoaded(movies : List<ResultsItem>?)
+    }
+
+    interface LoadTvCallback {
+        fun onTvLoaded(tv : List<ResultsItemTv>?)
     }
 }
 

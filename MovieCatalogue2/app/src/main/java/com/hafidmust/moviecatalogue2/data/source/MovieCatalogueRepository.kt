@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailMovieEntity
 import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
+import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.data.source.remote.RemoteDataSource
 import com.hafidmust.moviecatalogue2.data.source.remote.response.DetailMovieResponse
 import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItem
+import com.hafidmust.moviecatalogue2.data.source.remote.response.ResultsItemTv
 
 class MovieCatalogueRepository private constructor(private val remoteDataSource: RemoteDataSource) :
     MovieCatalogueDataSource {
@@ -37,6 +39,24 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
         })
         return result
     }
+    override fun getDiscoverTv(): LiveData<List<TvShowEntity>> {
+        val result = MutableLiveData<List<TvShowEntity>>()
+        remoteDataSource.getDiscoverTv(object : RemoteDataSource.LoadTvCallback{
+            override fun onTvLoaded(tv: List<ResultsItemTv>?) {
+                val tvList = ArrayList<TvShowEntity>()
+                if (tv != null){
+                    for (response in tv){
+                        with(response){
+                            val tv = TvShowEntity(id, posterPath)
+                            tvList.add(tv)
+                        }
+                    }
+                    result.postValue(tvList)
+                }
+            }
+        })
+        return result
+    }
 
     override fun getDetailMovie(MovieId: Int): LiveData<DetailMovieEntity> {
         val detailResult = MutableLiveData<DetailMovieEntity>()
@@ -52,4 +72,6 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
         },MovieId)
         return detailResult
     }
+
+
 }

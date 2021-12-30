@@ -7,6 +7,7 @@ import com.hafidmust.moviecatalogue2.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue2.di.Injection
 import com.hafidmust.moviecatalogue2.ui.detail.DetailViewModel
 import com.hafidmust.moviecatalogue2.ui.movie.MovieViewModel
+import com.hafidmust.moviecatalogue2.ui.tv.TvViewModel
 
 class ViewModelFactory private constructor(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModelProvider.NewInstanceFactory(){
     companion object{
@@ -26,6 +27,9 @@ class ViewModelFactory private constructor(private val movieCatalogueRepository:
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java)->{
                 DetailViewModel(movieCatalogueRepository) as T
+            }
+            modelClass.isAssignableFrom(TvViewModel::class.java)->{
+                TvViewModel(movieCatalogueRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel : "+modelClass.name)
         }

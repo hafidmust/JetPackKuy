@@ -3,11 +3,10 @@ package com.hafidmust.moviecatalogue2.ui.tv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hafidmust.moviecatalogue2.data.source.MovieCatalogueRepository
 
-class TvViewModel : ViewModel() {
+class TvViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getDiscoverTv() = movieCatalogueRepository.getDiscoverTv()
+
 }

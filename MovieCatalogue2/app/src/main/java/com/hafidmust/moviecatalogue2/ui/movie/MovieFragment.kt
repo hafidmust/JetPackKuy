@@ -15,7 +15,6 @@ import com.hafidmust.moviecatalogue2.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
 
-    private lateinit var movieViewModel: MovieViewModel
     private lateinit var fragmentMovieBinding: FragmentMovieBinding
 
     override fun onCreateView(
