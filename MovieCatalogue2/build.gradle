@@ -16,3 +16,7 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext{
+    androidCoreTestVersion = '2.1.0'
+    mockitoKotlinVersion = '2.2.0'
+}
