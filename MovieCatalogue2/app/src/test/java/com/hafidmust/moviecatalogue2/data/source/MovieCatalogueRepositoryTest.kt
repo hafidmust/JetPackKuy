@@ -6,6 +6,7 @@ import com.hafidmust.moviecatalogue2.utils.DataDummy
 import com.hafidmust.moviecatalogue2.utils.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.*
 import org.junit.Rule
@@ -19,6 +20,11 @@ class MovieCatalogueRepositoryTest {
     private val remote = mock(RemoteDataSource::class.java)
     private val movieCatalogueRepository = FakeMovieCatalogueRepository(remote)
     private val moviesResponse = DataDummy.getRemoteMovies()
+    private val moviesDetailResponse = DataDummy.getRemoteDetailMovies()
+    private val movieId = moviesResponse[0].id
+    private val tvResponse = DataDummy.getRemoteTvShow()
+    private val tvDetailResponse = DataDummy.getRemoteDetailTv()
+    private val tvId = tvResponse[0].id
 
 
 
@@ -38,14 +44,40 @@ class MovieCatalogueRepositoryTest {
 
     @Test
     fun getDiscoverTv() {
+        doAnswer {
+            (it.arguments[0] as RemoteDataSource.LoadTvCallback).onTvLoaded(tvResponse)
+            null
+        }.`when`(remote).getDiscoverTv(any())
 
+        val tvEntities = LiveDataTestUtil.getValue(movieCatalogueRepository.getDiscoverTv())
+        verify(remote).getDiscoverTv(any())
+        assertNotNull(tvEntities)
+        assertEquals(tvResponse.size, tvEntities.size)
     }
 
     @Test
     fun getDetailTvShow() {
+        doAnswer {
+            (it.arguments[0] as RemoteDataSource.LoadDetailTvShowCallback).onDetailTvLoaded(tvDetailResponse)
+            null
+        }.`when`(remote).getDetailTvShow(any(), eq(tvId))
+
+        val tvDetailEntities = LiveDataTestUtil.getValue(movieCatalogueRepository.getDetailTvShow(tvId))
+        verify(remote).getDetailTvShow(any(),eq(tvId))
+        assertNotNull(tvDetailEntities)
+        assertEquals(tvDetailResponse.id, tvDetailEntities.idEntity)
     }
 
     @Test
     fun getDetailMovie() {
+        doAnswer {
+            (it.arguments[0] as RemoteDataSource.LoadDetailMoviesCallback).onDetailMovieLoaded(moviesDetailResponse)
+            null
+        }.`when`(remote).getDetailMovies(any(), eq(movieId))
+
+        val movieDetailEntities = LiveDataTestUtil.getValue(movieCatalogueRepository.getDetailMovie(movieId))
+        verify(remote).getDetailMovies(any(),eq(movieId))
+        assertNotNull(movieDetailEntities)
+        assertEquals(moviesDetailResponse.id, movieDetailEntities.idEntity)
     }
 }
