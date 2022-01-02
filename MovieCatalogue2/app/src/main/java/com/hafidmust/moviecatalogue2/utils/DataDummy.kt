@@ -1,5 +1,6 @@
 package com.hafidmust.moviecatalogue2.utils
 
+import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue2.data.source.remote.response.*
 
 object DataDummy {
@@ -283,6 +284,13 @@ object DataDummy {
             type = "Scripted",
             voteAverage = 8.1,
             voteCount = 1724
+        )
+    }
+    fun getMovie() : List<MovieEntity>{
+        return listOf(
+            MovieEntity(id = 1,
+            posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+            )
         )
     }
 }
