@@ -51,6 +51,11 @@ class DetailViewModelTest {
 
         assertNotNull(detailMovieEntities)
         assertEquals(dummyDetailMovie.idEntity, detailMovieEntities.idEntity)
+        assertEquals(dummyDetailMovie.originalTitle, detailMovieEntities.originalTitle)
+        assertEquals(dummyDetailMovie.overview, detailMovieEntities.overview)
+        assertEquals(dummyDetailMovie.releaseDate, detailMovieEntities.releaseDate)
+        assertEquals(dummyDetailMovie.voteAverage, detailMovieEntities.voteAverage, 0.0001)
+        assertEquals(dummyDetailMovie.posterPath, detailMovieEntities.posterPath)
 
 
         viewModel.setData.observeForever(observer)
@@ -68,6 +73,11 @@ class DetailViewModelTest {
 
         assertNotNull(detailTvEntities)
         assertEquals(dummyDetailTv.idEntity, detailTvEntities.idEntity)
+        assertEquals(dummyDetailTv.originalTitle, detailTvEntities.originalTitle)
+        assertEquals(dummyDetailTv.overview, detailTvEntities.overview)
+        assertEquals(dummyDetailTv.releaseDate, detailTvEntities.releaseDate)
+        assertEquals(dummyDetailTv.voteAverage, detailTvEntities.voteAverage,0.0001)
+        assertEquals(dummyDetailTv.posterPath, detailTvEntities.posterPath)
 
         viewModel.setData.observeForever(observer)
         verify(observer).onChanged(dummyDetailTv)
