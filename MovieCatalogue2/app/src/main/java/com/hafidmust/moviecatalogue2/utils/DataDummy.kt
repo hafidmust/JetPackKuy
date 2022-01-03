@@ -318,7 +318,7 @@ object DataDummy {
     fun getDetailTv() : DetailEntity{
         return DetailEntity(
             77169,
-            "Kobra Kai",
+            "Cobra Kai",
             "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
             "2018-05-02",
             8.1,
