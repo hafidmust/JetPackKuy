@@ -27,7 +27,7 @@ class NoteRepository(application: Application) {
 
     fun delete(note : Note){
         executorService.execute {
-            noteDao.insert(note)
+            noteDao.delete(note)
         }
     }
 
