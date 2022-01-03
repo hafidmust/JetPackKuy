@@ -1,6 +1,8 @@
 package com.hafidmust.moviecatalogue2.utils
 
+import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailEntity
 import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
+import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.data.source.remote.response.*
 
 object DataDummy {
@@ -291,6 +293,36 @@ object DataDummy {
             MovieEntity(id = 1,
             posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
             )
+        )
+    }
+    fun getTv() : List<TvShowEntity>{
+        return listOf(
+            TvShowEntity(
+                1,
+                "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg"
+            )
+        )
+    }
+
+    fun getDetailMovie() : DetailEntity{
+        return DetailEntity(
+            idEntity = 634649,
+            posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+            originalTitle = "Spider-Man: No Way Home",
+            voteAverage = 8.4,
+            overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+            releaseDate = "2021-12-15"
+        )
+    }
+
+    fun getDetailTv() : DetailEntity{
+        return DetailEntity(
+            77169,
+            "Kobra Kai",
+            "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+            "2018-05-02",
+            8.1,
+            "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg"
         )
     }
 }
