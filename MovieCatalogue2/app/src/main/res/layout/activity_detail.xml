@@ -109,27 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"/>
-    <TextView
-        android:id="@+id/labelcategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kategori"
-        app:layout_constraintTop_toBottomOf="@id/contentrelease"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="16sp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="8dp"/>
-    <TextView
-        android:id="@+id/contentcategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Adventure, Sci-Fi"
-        app:layout_constraintTop_toBottomOf="@id/labelcategory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="8dp"/>
+
 
 
 
