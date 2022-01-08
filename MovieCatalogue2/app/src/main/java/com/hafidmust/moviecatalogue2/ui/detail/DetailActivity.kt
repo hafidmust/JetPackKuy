@@ -44,10 +44,13 @@ class DetailActivity : AppCompatActivity() {
         binding.contenttitle.text = detail?.originalTitle
         binding.tvcontentdesc.text = detail?.overview
         binding.contentrelease.text = detail?.releaseDate
+        binding.contenttvvote.text = detail?.voteAverage.toString()
+
         val getVote : Int = ((detail?.voteAverage?.div(10.0))?.times(100))?.roundToInt() ?: 0
         binding.contentvote.progress = getVote
         Glide.with(this)
             .load("https://image.tmdb.org/t/p/original${detail?.posterPath}")
             .into(binding.contentiamgeposter)
+        binding.contentiamgeposter.tag = detail?.posterPath
     }
 }

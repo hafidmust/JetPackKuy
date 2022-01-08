@@ -10,6 +10,8 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.hafidmust.moviecatalogue2.utils.DataDummy
 import com.hafidmust.moviecatalogue2.utils.EspressoIdlingResources
+import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.*
 
 import org.junit.After
@@ -46,6 +48,18 @@ class MainActivityTest {
             click()))
         onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
         onView(withId(R.id.contenttitle)).check(matches(withText(dummyDetailMovie.originalTitle)))
+
+        onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
+        onView(withId(R.id.contenttvvote)).check(matches(withText(dummyDetailMovie.voteAverage.toString())))
+
+        onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyDetailMovie.overview)))
+
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(withText(dummyDetailMovie.releaseDate)))
+
+        onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
+
     }
 
     @Test
@@ -62,5 +76,16 @@ class MainActivityTest {
             click()))
         onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
         onView(withId(R.id.contenttitle)).check(matches(withText(dummyDetailTv.originalTitle)))
+
+        onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
+        onView(withId(R.id.contenttvvote)).check(matches(withText(dummyDetailTv.voteAverage.toString())))
+
+        onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyDetailTv.overview)))
+
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(withText(dummyDetailTv.releaseDate)))
+
+        onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
     }
 }

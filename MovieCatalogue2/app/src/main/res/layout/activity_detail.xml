@@ -14,6 +14,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:elevation="10dp"
+        tools:ignore="ContentDescription"
         android:src="@drawable/ic_back"/>
 
     <ImageView
@@ -48,6 +49,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/contentvote"
+        app:layout_constraintBottom_toBottomOf="@id/contentvote"
+        app:layout_constraintLeft_toLeftOf="@id/contentvote"
+        app:layout_constraintRight_toRightOf="@id/contentvote"
+        android:id="@+id/contenttvvote"
+        android:textColor="@color/white"/>
     <View
         android:id="@+id/viewcenter"
         android:layout_width="1dp"
