@@ -11,5 +11,5 @@ import com.hafidmust.mynoteapps.repository.NoteRepository
 class MainViewModel(application: Application) : ViewModel()  {
     private val repository : NoteRepository = NoteRepository(application)
 
-    fun getAllNotes() : LiveData<PagedList<Note>> = LivePagedListBuilder(repository.getAllNotes(), 20).build()
+    fun getAllNotes(sort : String) : LiveData<PagedList<Note>> = LivePagedListBuilder(repository.getAllNotes(sort), 20).build()
 }

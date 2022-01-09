@@ -2,14 +2,13 @@ package com.hafidmust.academy.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -20,8 +19,8 @@ import com.hafidmust.academy.data.CourseEntity
 import com.hafidmust.academy.databinding.ActivityDetailCourseBinding
 import com.hafidmust.academy.databinding.ContentDetailCourseBinding
 import com.hafidmust.academy.ui.reader.CourseReaderActivity
-import com.hafidmust.academy.utils.DataDummy
 import com.hafidmust.academy.viewmodel.ViewModelFactory
+import com.hafidmust.academy.vo.Status
 
 class DetailCourseActivity : AppCompatActivity() {
 
@@ -29,12 +28,15 @@ class DetailCourseActivity : AppCompatActivity() {
         const val EXTRA_COURSE = "extra_course"
     }
 
+    private lateinit var activityDetailCourseBinding: ActivityDetailCourseBinding
+    private lateinit var viewModel : DetailCourseViewModel
+    private var menu: Menu? = null
     private lateinit var detailContentBinding: ContentDetailCourseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityDetailCourseBinding = ActivityDetailCourseBinding.inflate(layoutInflater)
+        activityDetailCourseBinding = ActivityDetailCourseBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailCourseBinding.detailContent
 
         setContentView(activityDetailCourseBinding.root)
@@ -42,7 +44,7 @@ class DetailCourseActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
         val adapter = DetailCourseAdapter()
 
@@ -50,18 +52,27 @@ class DetailCourseActivity : AppCompatActivity() {
         if (extras != null) {
             val courseId = extras.getString(EXTRA_COURSE)
             if (courseId != null) {
-                activityDetailCourseBinding.progressBarDetail.visibility = View.VISIBLE
-                activityDetailCourseBinding.content.visibility = View.INVISIBLE
-
                 viewModel.setSelectedCourse(courseId)
-                viewModel.getModules().observe(this,{modules ->
-                    activityDetailCourseBinding.progressBarDetail.visibility = View.GONE
-                    activityDetailCourseBinding.content.visibility = View.VISIBLE
-
-                    adapter.setModules(modules)
-                    adapter.notifyDataSetChanged()
+                viewModel.courseModule.observe(this,{courseWithModuleResources ->
+                    if (courseWithModuleResources != null){
+                        when(courseWithModuleResources.status){
+                            Status.LOADING -> activityDetailCourseBinding.progressBarDetail.visibility = View.VISIBLE
+                            Status.SUCCESS ->{
+                                if (courseWithModuleResources.data != null){
+                                    activityDetailCourseBinding.progressBarDetail.visibility = View.GONE
+                                    activityDetailCourseBinding.content.visibility = View.VISIBLE
+                                    adapter.setModules(courseWithModuleResources.data.mModules)
+                                    adapter.notifyDataSetChanged()
+                                    populateCourse(courseWithModuleResources.data.mCourse)
+                                }
+                            }
+                            Status.ERROR -> {
+                                activityDetailCourseBinding.progressBarDetail.visibility = View.GONE
+                                Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 })
-                viewModel.getCourse().observe(this,{course-> populateCourse(course)})
             }
         }
 
@@ -72,6 +83,47 @@ class DetailCourseActivity : AppCompatActivity() {
             this.adapter = adapter
             val dividerItemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
             addItemDecoration(dividerItemDecoration)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        viewModel.courseModule.observe(this, {courseWithModule->
+            if (courseWithModule != null){
+                when(courseWithModule.status){
+                    Status.LOADING -> activityDetailCourseBinding.progressBarDetail.visibility = View.VISIBLE
+                    Status.SUCCESS -> if (courseWithModule.data != null){
+                        activityDetailCourseBinding.progressBarDetail.visibility = View.GONE
+                        val state = courseWithModule.data.mCourse.bookmarked
+                        setBookmarkState(state)
+                    }
+                    Status.ERROR ->{
+                        activityDetailCourseBinding.progressBarDetail.visibility = View.GONE
+                        Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+            }
+        })
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_bookmark){
+            viewModel.setBookmark()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBookmarkState(state : Boolean){
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_bookmark)
+        if (state){
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_bookmarked_white)
+        }else{
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_bookmark_white)
         }
     }
 

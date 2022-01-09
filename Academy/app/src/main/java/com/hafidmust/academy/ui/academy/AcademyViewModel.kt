@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.hafidmust.academy.data.CourseEntity
 import com.hafidmust.academy.data.source.AcademyRepository
 import com.hafidmust.academy.utils.DataDummy
+import com.hafidmust.academy.vo.Resource
 
 class AcademyViewModel(private val academyRepository: AcademyRepository) : ViewModel() {
-    fun getCourses() : LiveData<List<CourseEntity>> = academyRepository.getAllCourses()
+    fun getCourses() : LiveData<Resource<List<CourseEntity>>> = academyRepository.getAllCourses()
 }

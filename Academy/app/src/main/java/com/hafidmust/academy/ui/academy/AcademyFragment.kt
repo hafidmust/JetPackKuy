@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hafidmust.academy.R
 import com.hafidmust.academy.databinding.FragmentAcademyBinding
 import com.hafidmust.academy.utils.DataDummy
 import com.hafidmust.academy.viewmodel.ViewModelFactory
+import com.hafidmust.academy.vo.Status
 
 
 class AcademyFragment : Fragment() {
@@ -33,15 +35,26 @@ class AcademyFragment : Fragment() {
         if (activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
-            val course = viewModel.getCourses()
             val academyAdapter = AcademyAdapter()
 
 
-            fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getCourses().observe(viewLifecycleOwner,{
-                fragmentAcademyBinding.progressBar.visibility = View.GONE
-                academyAdapter.setCourses(it)
-                academyAdapter.notifyDataSetChanged()
+
+            viewModel.getCourses().observe(viewLifecycleOwner,{course->
+                if (course != null){
+                    when(course.status){
+                        Status.LOADING -> fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            fragmentAcademyBinding.progressBar.visibility = View.GONE
+                            academyAdapter.setCourses(course.data)
+                            academyAdapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR -> {
+                            fragmentAcademyBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
             })
 
             with(fragmentAcademyBinding.rvAcademy){

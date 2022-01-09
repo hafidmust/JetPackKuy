@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_bookmark_selector.xml" value="0.209375" />
@@ -24,6 +25,7 @@
         <entry key="app/src/main/res/layout/items_module_list.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/items_module_list_CUSTOM.xml" value="0.1" />
         <entry key="app/src/main/res/layout/items_module_list_custom.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/menu_detail.xml" value="0.18" />
       </map>
     </option>
   </component>
