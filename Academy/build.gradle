@@ -37,4 +37,5 @@ ext {
 //    room
     roomVersion = '2.2.3'
     roomRuntimeVersion = '2.2.5'
+    idleResourceVersion = '3.2.0'
 }

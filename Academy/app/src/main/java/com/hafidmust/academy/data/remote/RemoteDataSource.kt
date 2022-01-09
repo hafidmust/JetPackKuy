@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.hafidmust.academy.data.source.response.ContentResponse
 import com.hafidmust.academy.data.source.response.CourseResponse
 import com.hafidmust.academy.data.source.response.ModuleResponse
+import com.hafidmust.academy.utils.EspressoIdlingResource
 import com.hafidmust.academy.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -29,25 +30,32 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     fun getAllCourses(): LiveData<ApiResponse<List<CourseResponse>>> {
+        EspressoIdlingResource.increment()
         val resultCourse = MutableLiveData<ApiResponse<List<CourseResponse>>>()
         handler.postDelayed({
             resultCourse.value = ApiResponse.success(jsonHelper.loadCourse())
+            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
         return resultCourse
     }
 
     fun getModules(courseId: String): LiveData<ApiResponse<List<ModuleResponse>>> {
+        EspressoIdlingResource.increment()
         val resultModules = MutableLiveData<ApiResponse<List<ModuleResponse>>>()
         handler.postDelayed({
             resultModules.value = ApiResponse.success(jsonHelper.loadModule(courseId))
+            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
         return resultModules
     }
 
     fun getContent(moduleId: String) : LiveData<ApiResponse<ContentResponse>> {
+        EspressoIdlingResource.increment()
         val resultContent = MutableLiveData<ApiResponse<ContentResponse>>()
         handler.postDelayed(
-            { resultContent.value = ApiResponse.success (jsonHelper.loadContent(moduleId))},
+            { resultContent.value = ApiResponse.success (jsonHelper.loadContent(moduleId))
+            EspressoIdlingResource.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS
         )
         return resultContent
