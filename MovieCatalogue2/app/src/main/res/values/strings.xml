@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Movie Catalogue 2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="movie">Movie</string>
     <string name="tv_show">Tv Show</string>
     <string name="poster_movie">Poster Movie</string>
+    <string name="poster_detail_image">Poster detail image</string>
+    <string name="judul_film">JUDUL FILM</string>
+    <string name="description">Description</string>
+    <string name="rilis">Rilis</string>
 </resources>

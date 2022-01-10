@@ -10,10 +10,6 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.hafidmust.moviecatalogue2.utils.DataDummy
 import com.hafidmust.moviecatalogue2.utils.EspressoIdlingResources
-import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.*
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

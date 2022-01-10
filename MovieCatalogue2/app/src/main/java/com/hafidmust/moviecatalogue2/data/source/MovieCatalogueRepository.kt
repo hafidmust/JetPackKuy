@@ -48,8 +48,8 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
                 if (tv != null){
                     for (response in tv){
                         with(response){
-                            val tv = TvShowEntity(id, posterPath)
-                            tvList.add(tv)
+                            val tvs = TvShowEntity(id, posterPath)
+                            tvList.add(tvs)
                         }
                     }
                     result.postValue(tvList)
@@ -59,7 +59,7 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
         return result
     }
 
-    override fun getDetailTvShow(TvId: Int): LiveData<DetailEntity> {
+    override fun getDetailTvShow(tvId: Int): LiveData<DetailEntity> {
         val detailTv = MutableLiveData<DetailEntity>()
         remoteDataSource.getDetailTvShow(object : RemoteDataSource.LoadDetailTvShowCallback{
             override fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse) {
@@ -68,11 +68,11 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
                     detailTv.postValue(detail)
                 }
             }
-        },TvId)
+        },tvId)
         return detailTv
     }
 
-    override fun getDetailMovie(MovieId: Int): LiveData<DetailEntity> {
+    override fun getDetailMovie(movieId: Int): LiveData<DetailEntity> {
         val detailResult = MutableLiveData<DetailEntity>()
         remoteDataSource.getDetailMovies(object : RemoteDataSource.LoadDetailMoviesCallback {
             override fun onDetailMovieLoaded(detailMovie: DetailMovieResponse?) {
@@ -83,7 +83,7 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
                     }
                 }
             }
-        },MovieId)
+        },movieId)
         return detailResult
     }
 

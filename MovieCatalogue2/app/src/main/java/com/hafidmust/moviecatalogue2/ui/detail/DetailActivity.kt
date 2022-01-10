@@ -1,7 +1,7 @@
 package com.hafidmust.moviecatalogue2.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalogue2.data.source.local.entity.DetailEntity
@@ -41,16 +41,19 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun populateDetail(detail: DetailEntity?) {
-        binding.contenttitle.text = detail?.originalTitle
-        binding.tvcontentdesc.text = detail?.overview
-        binding.contentrelease.text = detail?.releaseDate
-        binding.contenttvvote.text = detail?.voteAverage.toString()
+        with(binding){
+            contenttitle.text = detail?.originalTitle
+            tvcontentdesc.text = detail?.overview
+            contentrelease.text = detail?.releaseDate
+            contenttvvote.text = detail?.voteAverage.toString()
 
-        val getVote : Int = ((detail?.voteAverage?.div(10.0))?.times(100))?.roundToInt() ?: 0
-        binding.contentvote.progress = getVote
-        Glide.with(this)
-            .load("https://image.tmdb.org/t/p/original${detail?.posterPath}")
-            .into(binding.contentiamgeposter)
-        binding.contentiamgeposter.tag = detail?.posterPath
+            val getVote : Int = ((detail?.voteAverage?.div(10.0))?.times(100))?.roundToInt() ?: 0
+            contentvote.progress = getVote
+            Glide.with(root.context)
+                .load("https://image.tmdb.org/t/p/original${detail?.posterPath}")
+                .into(contentiamgeposter)
+            contentiamgeposter.tag = detail?.posterPath
+        }
+
     }
 }

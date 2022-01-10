@@ -21,7 +21,7 @@ class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<Mov
                 Glide.with(itemView.context)
                     .load(BuildConfig.POSTER_PATH+movies.posterPath)
                     .into(imgPoster)
-                binding.root.setOnClickListener {
+                root.setOnClickListener {
                     clickListener.doClick(movies)
                 }
             }

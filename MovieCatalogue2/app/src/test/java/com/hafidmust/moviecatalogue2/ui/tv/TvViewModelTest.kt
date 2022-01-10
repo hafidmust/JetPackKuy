@@ -7,8 +7,8 @@ import com.hafidmust.moviecatalogue2.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

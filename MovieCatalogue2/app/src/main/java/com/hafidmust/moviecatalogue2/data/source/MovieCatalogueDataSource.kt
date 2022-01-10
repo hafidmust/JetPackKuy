@@ -8,7 +8,7 @@ import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 
 interface MovieCatalogueDataSource {
     fun getDiscoverMovies() : LiveData<List<MovieEntity>>
-    fun getDetailMovie(MovieId : Int) : LiveData<DetailEntity>
+    fun getDetailMovie(movieId : Int) : LiveData<DetailEntity>
     fun getDiscoverTv() : LiveData<List<TvShowEntity>>
-    fun getDetailTvShow(TvId : Int) : LiveData<DetailEntity>
+    fun getDetailTvShow(tvId : Int) : LiveData<DetailEntity>
 }

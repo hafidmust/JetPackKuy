@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalogue2.BuildConfig
-import com.hafidmust.moviecatalogue2.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue2.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue2.databinding.ListItemsBinding
 
