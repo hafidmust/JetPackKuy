@@ -3,6 +3,7 @@ package com.hafidmust.moviecatalogue3.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalogue3.data.source.local.entity.DetailEntity
 import com.hafidmust.moviecatalogue3.databinding.ActivityDetailBinding
 import com.hafidmust.moviecatalogue3.viewmodel.ViewModelFactory

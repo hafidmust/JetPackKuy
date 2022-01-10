@@ -6,14 +6,17 @@
         <entry key="app/src/main/res/drawable/bg_shape_detail.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.38645833333333335" />
+        <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_tv.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/menu/menu_to_fav.xml" value="0.1" />
       </map>
     </option>
   </component>

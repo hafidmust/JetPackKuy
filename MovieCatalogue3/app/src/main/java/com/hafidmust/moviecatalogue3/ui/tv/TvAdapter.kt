@@ -3,6 +3,8 @@ package com.hafidmust.moviecatalogue3.ui.tv
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.hafidmust.moviecatalogue3.BuildConfig
 import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.databinding.ListItemsBinding
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.databinding.FragmentMovieBinding
 import com.hafidmust.moviecatalogue3.ui.detail.DetailActivity

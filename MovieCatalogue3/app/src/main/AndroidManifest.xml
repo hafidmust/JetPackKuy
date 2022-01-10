@@ -12,10 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieCatalogue2">
         <activity
-            android:name="com.hafidmust.moviecatalogue3.ui.detail.DetailActivity"
+            android:name=".ui.favorite.FavoriteActivity"
+            android:exported="false"
+            android:label="@string/title_activity_favorite"
+            android:theme="@style/Theme.MovieCatalogue2.NoActionBar" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.hafidmust.moviecatalogue3.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
