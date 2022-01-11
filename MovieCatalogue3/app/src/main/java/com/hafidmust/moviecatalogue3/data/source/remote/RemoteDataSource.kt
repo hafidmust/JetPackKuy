@@ -1,6 +1,8 @@
 package com.hafidmust.moviecatalogue3.data.source.remote
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.hafidmust.moviecatalogue3.BuildConfig
 import com.hafidmust.moviecatalogue3.data.source.remote.response.*
 import com.hafidmust.moviecatalogue3.network.ApiConfig
@@ -12,12 +14,13 @@ import retrofit2.Response
 class RemoteDataSource {
 
 
-    fun getDiscoverMovies(callback : LoadMoviesCallback){
+    fun getDiscoverMovies(): LiveData<ApiResponse<List<ResultsItem>>> {
         EspressoIdlingResources.increment()
+        val resultMovie = MutableLiveData<ApiResponse<List<ResultsItem>>>()
         val client = ApiConfig.getApiService().getDiscoverMovie(BuildConfig.API_KEY,1)
         client.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                callback.onMoviesLoaded(response.body()?.results)
+                resultMovie.value = ApiResponse.success(response.body()?.results as List<ResultsItem>)
                 EspressoIdlingResources.decrement()
             }
 
@@ -26,6 +29,7 @@ class RemoteDataSource {
                 EspressoIdlingResources.decrement()
             }
         })
+        return resultMovie
     }
 
     fun getDiscoverTv(callback : LoadTvCallback){
