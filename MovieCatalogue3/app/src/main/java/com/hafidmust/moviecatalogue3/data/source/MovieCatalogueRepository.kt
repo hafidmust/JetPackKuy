@@ -112,6 +112,10 @@ private val localDataSource: LocalDataSource,
         }
     }
 
+    override fun getFavoriteMovie(): LiveData<List<MovieEntity>> {
+        return localDataSource.getFavoriteMovies()
+    }
+
     override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>> {
         return object : NetworkBoundResource<MovieEntity, DetailMovieResponse>(appExecutors){
             override fun loadFromDB(): LiveData<MovieEntity> {

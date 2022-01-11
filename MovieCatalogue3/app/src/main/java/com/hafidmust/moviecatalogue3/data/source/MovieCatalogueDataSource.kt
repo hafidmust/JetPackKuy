@@ -13,4 +13,5 @@ interface MovieCatalogueDataSource {
     fun getDiscoverTv() : LiveData<List<TvShowEntity>>
     fun getDetailTvShow(tvId : Int) : LiveData<TvShowEntity>
     fun setFavoriteMovie(movie: MovieEntity, state: Boolean)
+    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
 }
