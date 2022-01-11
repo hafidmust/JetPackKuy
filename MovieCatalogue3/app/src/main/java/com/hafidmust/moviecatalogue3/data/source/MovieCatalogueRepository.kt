@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hafidmust.moviecatalogue3.NetworkBoundResource
 import com.hafidmust.moviecatalogue3.data.source.local.LocalDataSource
-import com.hafidmust.moviecatalogue3.data.source.local.entity.DetailEntity
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.data.source.remote.ApiResponse
@@ -45,7 +44,14 @@ private val localDataSource: LocalDataSource,
                 val movieList = ArrayList<MovieEntity>()
                 for (response in data){
                     val movie = MovieEntity(
-                        response.id,response.posterPath,false
+//                        response.id,response.posterPath,false
+                    id = response.id,
+                        posterPath = response.posterPath,
+                        originalTitle = response.originalTitle,
+                        overview = response.overview,
+                        releaseDate = response.releaseDate,
+                        voteAverage = response.voteAverage,
+                        isFavorite = false
                     )
                     movieList.add(movie)
                 }
@@ -61,7 +67,15 @@ private val localDataSource: LocalDataSource,
                 if (tv != null){
                     for (response in tv){
                         with(response){
-                            val tvs = TvShowEntity(id, posterPath)
+                            val tvs = TvShowEntity(
+                                id = id,
+                                posterPath = posterPath,
+                                originalTitle = originalName,
+                                overview = overview,
+                                releaseDate = firstAirDate,
+                                voteAverage = voteAverage,
+                                isFavorite = false
+                            )
                             tvList.add(tvs)
                         }
                     }
@@ -72,12 +86,19 @@ private val localDataSource: LocalDataSource,
         return result
     }
 
-    override fun getDetailTvShow(tvId: Int): LiveData<DetailEntity> {
-        val detailTv = MutableLiveData<DetailEntity>()
+    override fun getDetailTvShow(tvId: Int): LiveData<TvShowEntity> {
+        val detailTv = MutableLiveData<TvShowEntity>()
         remoteDataSource.getDetailTvShow(object : RemoteDataSource.LoadDetailTvShowCallback{
             override fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse) {
                 with(detailTvShowResponse){
-                    val detail = DetailEntity(idEntity = id,originalTitle = originalName,overview = overview,releaseDate = firstAirDate,voteAverage = voteAverage,posterPath = posterPath)
+                    val detail = TvShowEntity(
+                        id = id,
+                        originalTitle = originalName,
+                        overview = overview,
+                        releaseDate = firstAirDate,
+                        voteAverage = voteAverage,
+                        posterPath = posterPath,
+                        isFavorite = false)
                     detailTv.postValue(detail)
                 }
             }
@@ -91,19 +112,33 @@ private val localDataSource: LocalDataSource,
         }
     }
 
-    override fun getDetailMovie(movieId: Int): LiveData<DetailEntity> {
-        val detailResult = MutableLiveData<DetailEntity>()
-        remoteDataSource.getDetailMovies(object : RemoteDataSource.LoadDetailMoviesCallback {
-            override fun onDetailMovieLoaded(detailMovie: DetailMovieResponse?) {
-                if (detailMovie != null) {
-                    with(detailMovie){
-                        val detail = DetailEntity(id,originalTitle, overview, releaseDate, voteAverage, posterPath)
-                        detailResult.postValue(detail)
-                    }
-                }
+    override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>> {
+        return object : NetworkBoundResource<MovieEntity, DetailMovieResponse>(appExecutors){
+            override fun loadFromDB(): LiveData<MovieEntity> {
+                return localDataSource.getDetailMovies(movieId)
             }
-        },movieId)
-        return detailResult
+
+            override fun shouldFetch(data: MovieEntity?): Boolean {
+                return data == null && data?.id == 0
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DetailMovieResponse>> {
+                return remoteDataSource.getDetailMovies(movieId)
+            }
+
+            override fun saveCallResult(data: DetailMovieResponse) {
+                val detailMovie = MovieEntity(
+                    id = data.id,
+                    posterPath = data.posterPath,
+                    originalTitle = data.originalTitle,
+                    overview = data.overview,
+                    releaseDate = data.releaseDate,
+                    voteAverage = data.voteAverage,
+                    isFavorite = false
+                )
+                localDataSource.setFavoriteMovie(detailMovie,false)
+            }
+        }.asLiveData()
     }
 
 

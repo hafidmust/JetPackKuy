@@ -53,15 +53,16 @@ class RemoteDataSource {
 
 
 
-    fun getDetailMovies(callback : LoadDetailMoviesCallback, movieId : Int){
+    fun getDetailMovies(movieId : Int) : LiveData<ApiResponse<DetailMovieResponse>>{
         EspressoIdlingResources.increment()
+        val resultDetailMovie = MutableLiveData<ApiResponse<DetailMovieResponse>>()
         val client = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY)
         client.enqueue(object : Callback<DetailMovieResponse>{
             override fun onResponse(
                 call: Call<DetailMovieResponse>,
                 response: Response<DetailMovieResponse>
             ) {
-                callback.onDetailMovieLoaded(response.body())
+                resultDetailMovie.value = ApiResponse.success(response.body() as DetailMovieResponse)
                 EspressoIdlingResources.decrement()
             }
 
@@ -70,6 +71,7 @@ class RemoteDataSource {
                 EspressoIdlingResources.decrement()
             }
         })
+        return resultDetailMovie
     }
     fun getDetailTvShow(callback : LoadDetailTvShowCallback, tvId : Int){
         EspressoIdlingResources.increment()

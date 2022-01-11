@@ -6,12 +6,12 @@ import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.data.source.remote.response.*
 
 object DataDummy {
-    fun getRemoteMovies() : List<ResultsItem> {
+    fun getRemoteMovies(): List<ResultsItem> {
         return listOf(
             ResultsItem(
                 adult = false,
                 backdropPath = "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
-                genreIds = listOf(28,12,878),
+                genreIds = listOf(28, 12, 878),
                 id = 634649,
                 originalLanguage = "en",
                 originalTitle = "Spider-Man= No Way Home",
@@ -26,7 +26,8 @@ object DataDummy {
             )
         )
     }
-    fun getRemoteDetailMovies() : DetailMovieResponse{
+
+    fun getRemoteDetailMovies(): DetailMovieResponse {
         return DetailMovieResponse(
             adult = false,
             backdropPath = "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
@@ -121,7 +122,8 @@ object DataDummy {
             voteCount = 2654
         )
     }
-    fun getRemoteTvShow() : List<ResultsItemTv>{
+
+    fun getRemoteTvShow(): List<ResultsItemTv> {
         return listOf(
             ResultsItemTv(
                 backdropPath = "/aq2yEMgRQBPfRkrO0Repo2qhUAT.jpg",
@@ -140,7 +142,8 @@ object DataDummy {
             )
         )
     }
-    fun getRemoteDetailTv() :  DetailTvShowResponse{
+
+    fun getRemoteDetailTv(): DetailTvShowResponse {
         return DetailTvShowResponse(
             backdropPath = "/gL8myjGc2qrmqVosyGm5CWTir9A.jpg",
             createdBy = listOf(
@@ -288,23 +291,36 @@ object DataDummy {
             voteCount = 1724
         )
     }
-    fun getMovie() : List<MovieEntity>{
+
+    fun getMovie(): List<MovieEntity> {
         return listOf(
-            MovieEntity(id = 1,
-            posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-            )
-        )
-    }
-    fun getTv() : List<TvShowEntity>{
-        return listOf(
-            TvShowEntity(
-                1,
-                "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg"
+            MovieEntity(
+                id = 1,
+                posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+                originalTitle = "Spider-Man= No Way Home",
+                overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+                releaseDate = "2021-12-15",
+                voteAverage = 8.4,
+                isFavorite = false
             )
         )
     }
 
-    fun getDetailMovie() : DetailEntity{
+    fun getTv(): List<TvShowEntity> {
+        return listOf(
+            TvShowEntity(
+                id = 1,
+                posterPath = "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+                originalTitle = "Cobra Kai",
+                overview = "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+                releaseDate = "2021-01-01",
+                voteAverage = 8.1,
+                isFavorite = false
+            )
+        )
+    }
+
+    fun getDetailMovie(): DetailEntity {
         return DetailEntity(
             idEntity = 634649,
             posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
@@ -315,7 +331,7 @@ object DataDummy {
         )
     }
 
-    fun getDetailTv() : DetailEntity{
+    fun getDetailTv(): DetailEntity {
         return DetailEntity(
             77169,
             "Cobra Kai",

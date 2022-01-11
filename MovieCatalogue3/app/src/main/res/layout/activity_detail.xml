@@ -16,6 +16,18 @@
         android:elevation="10dp"
         tools:ignore="ContentDescription"
         android:src="@drawable/ic_back"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        tools:ignore="ContentDescription"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_favorite_border_24"/>
 
     <ImageView
         android:id="@+id/contentiamgeposter"

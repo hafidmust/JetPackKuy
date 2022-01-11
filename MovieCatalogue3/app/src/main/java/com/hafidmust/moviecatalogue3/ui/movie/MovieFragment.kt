@@ -47,7 +47,9 @@ class MovieFragment : Fragment() {
             viewModel.getDiscoverMovies().observe(viewLifecycleOwner, {movies ->
                 if(movies !=null){
                     when(movies.status){
+                        Status.LOADING -> fragmentMovieBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
+                            fragmentMovieBinding.progressBar.visibility = View.GONE
                             movies.data?.let { movieAdapter.setMovies(it) }
                             movieAdapter.notifyDataSetChanged()
                         }
