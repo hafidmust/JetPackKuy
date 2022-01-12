@@ -10,7 +10,7 @@ import com.hafidmust.moviecatalogue3.vo.Resource
 
 class DetailViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModel() {
     lateinit var setDataMovie : LiveData<Resource<MovieEntity>>
-    lateinit var setDataTv : LiveData<TvShowEntity>
+    lateinit var setDataTv : LiveData<Resource<TvShowEntity>>
     fun getData(id : Int, type : String){
         when(type){
             "movie" ->{
@@ -26,6 +26,13 @@ class DetailViewModel(private val movieCatalogueRepository: MovieCatalogueReposi
         if (movieResource?.data != null){
             val newState = !movieResource.data.isFavorite
             movieCatalogueRepository.setFavoriteMovie(movieResource.data, newState)
+        }
+    }
+    fun setFavTv(){
+        val tvResource = setDataTv.value
+        if (tvResource?.data != null){
+            val newState = !tvResource.data.isFavorite
+            movieCatalogueRepository.setFavoriteTv(tvResource.data, newState)
         }
     }
 

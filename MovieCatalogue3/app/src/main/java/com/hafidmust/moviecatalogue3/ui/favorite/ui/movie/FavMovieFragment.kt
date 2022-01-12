@@ -1,5 +1,6 @@
 package com.hafidmust.moviecatalogue3.ui.favorite.ui.movie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.hafidmust.moviecatalogue3.R
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.databinding.FragmentFavMovieBinding
+import com.hafidmust.moviecatalogue3.ui.detail.DetailActivity
 import com.hafidmust.moviecatalogue3.viewmodel.ViewModelFactory
 
 class FavMovieFragment : Fragment() {
@@ -31,7 +33,13 @@ class FavMovieFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[FavMovieViewModel::class.java]
             val favMovieAdapter =  FavMovieAdapter(object : FavMovieAdapter.ClickListener{
                 override fun doClick(item: MovieEntity) {
-
+                    val intent = Intent(
+                        activity, DetailActivity::class.java
+                    ).apply {
+                        putExtra(DetailActivity.EXTRA_ID, item.id)
+                        putExtra(DetailActivity.EXTRA_TYPE, "movie")
+                    }
+                    startActivity(intent)
                 }
             })
 

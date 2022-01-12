@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hafidmust.moviecatalogue3.BuildConfig
+import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.data.source.remote.response.*
 import com.hafidmust.moviecatalogue3.network.ApiConfig
 import com.hafidmust.moviecatalogue3.utils.EspressoIdlingResources
@@ -32,15 +33,16 @@ class RemoteDataSource {
         return resultMovie
     }
 
-    fun getDiscoverTv(callback : LoadTvCallback){
+    fun getDiscoverTv(): LiveData<ApiResponse<List<ResultsItemTv>>>{
         EspressoIdlingResources.increment()
+        val resultTv = MutableLiveData<ApiResponse<List<ResultsItemTv>>>()
         val client = ApiConfig.getApiService().getDiscoverTv(BuildConfig.API_KEY,1)
         client.enqueue(object : Callback<TvShowResponse>{
             override fun onResponse(
                 call: Call<TvShowResponse>,
                 response: Response<TvShowResponse>
             ) {
-                callback.onTvLoaded(response.body()?.results)
+                resultTv.value = ApiResponse.success(response.body()?.results as List<ResultsItemTv>)
                 EspressoIdlingResources.decrement()
             }
 
@@ -49,6 +51,7 @@ class RemoteDataSource {
                 EspressoIdlingResources.decrement()
             }
         })
+        return resultTv
     }
 
 
@@ -73,15 +76,16 @@ class RemoteDataSource {
         })
         return resultDetailMovie
     }
-    fun getDetailTvShow(callback : LoadDetailTvShowCallback, tvId : Int){
+    fun getDetailTvShow(tvId : Int) : LiveData<ApiResponse<DetailTvShowResponse>>{
         EspressoIdlingResources.increment()
+        val resultDetailTv = MutableLiveData<ApiResponse<DetailTvShowResponse>>()
         val client = ApiConfig.getApiService().getDetailTvShow(tvId, BuildConfig.API_KEY)
         client.enqueue(object : Callback<DetailTvShowResponse>{
             override fun onResponse(
                 call: Call<DetailTvShowResponse>,
                 response: Response<DetailTvShowResponse>
             ) {
-                response.body()?.let { callback.onDetailTvLoaded(it) }
+                resultDetailTv.value = ApiResponse.success(response.body() as DetailTvShowResponse)
                 EspressoIdlingResources.decrement()
             }
 
@@ -90,6 +94,7 @@ class RemoteDataSource {
                 EspressoIdlingResources.decrement()
             }
         })
+        return resultDetailTv
     }
     interface LoadDetailTvShowCallback{
         fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse)

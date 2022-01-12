@@ -59,51 +59,67 @@ private val localDataSource: LocalDataSource,
             }
         }.asLiveData()
     }
-    override fun getDiscoverTv(): LiveData<List<TvShowEntity>> {
-        val result = MutableLiveData<List<TvShowEntity>>()
-        remoteDataSource.getDiscoverTv(object : RemoteDataSource.LoadTvCallback{
-            override fun onTvLoaded(tv: List<ResultsItemTv>?) {
-                val tvList = ArrayList<TvShowEntity>()
-                if (tv != null){
-                    for (response in tv){
-                        with(response){
-                            val tvs = TvShowEntity(
-                                id = id,
-                                posterPath = posterPath,
-                                originalTitle = originalName,
-                                overview = overview,
-                                releaseDate = firstAirDate,
-                                voteAverage = voteAverage,
-                                isFavorite = false
-                            )
-                            tvList.add(tvs)
-                        }
-                    }
-                    result.postValue(tvList)
-                }
+    override fun getDiscoverTv(): LiveData<Resource<List<TvShowEntity>>> {
+        return object : NetworkBoundResource<List<TvShowEntity>, List<ResultsItemTv>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<TvShowEntity>> {
+                return localDataSource.getAllTv()
             }
-        })
-        return result
+
+            override fun shouldFetch(data: List<TvShowEntity>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<List<ResultsItemTv>>> {
+                return remoteDataSource.getDiscoverTv()
+            }
+
+            override fun saveCallResult(data: List<ResultsItemTv>) {
+                val tvList = ArrayList<TvShowEntity>()
+                for (response in data){
+                    val tv = TvShowEntity(
+//                        response.id,response.posterPath,false
+                        id = response.id,
+                        posterPath = response.posterPath,
+                        originalTitle = response.originalName,
+                        overview = response.overview,
+                        releaseDate = response.firstAirDate,
+                        voteAverage = response.voteAverage,
+                        isFavorite = false
+                    )
+                    tvList.add(tv)
+                }
+                localDataSource.insertTv(tvList)
+            }
+        }.asLiveData()
     }
 
-    override fun getDetailTvShow(tvId: Int): LiveData<TvShowEntity> {
-        val detailTv = MutableLiveData<TvShowEntity>()
-        remoteDataSource.getDetailTvShow(object : RemoteDataSource.LoadDetailTvShowCallback{
-            override fun onDetailTvLoaded(detailTvShowResponse: DetailTvShowResponse) {
-                with(detailTvShowResponse){
-                    val detail = TvShowEntity(
-                        id = id,
-                        originalTitle = originalName,
-                        overview = overview,
-                        releaseDate = firstAirDate,
-                        voteAverage = voteAverage,
-                        posterPath = posterPath,
-                        isFavorite = false)
-                    detailTv.postValue(detail)
-                }
+    override fun getDetailTvShow(tvId: Int): LiveData<Resource<TvShowEntity>> {
+        return object : NetworkBoundResource<TvShowEntity, DetailTvShowResponse>(appExecutors){
+            override fun loadFromDB(): LiveData<TvShowEntity> {
+                return localDataSource.getDetailTv(tvId)
             }
-        },tvId)
-        return detailTv
+
+            override fun shouldFetch(data: TvShowEntity?): Boolean {
+                return data == null && data?.id == 0
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DetailTvShowResponse>> {
+                return remoteDataSource.getDetailTvShow(tvId)
+            }
+
+            override fun saveCallResult(data: DetailTvShowResponse) {
+                val detailTv = TvShowEntity(
+                    id = data.id,
+                    posterPath = data.posterPath,
+                    originalTitle = data.originalName,
+                    overview = data.overview,
+                    releaseDate = data.firstAirDate,
+                    voteAverage = data.voteAverage,
+                    isFavorite = false
+                )
+                localDataSource.setFavoriteTv(detailTv, false)
+            }
+        }.asLiveData()
     }
 
     override fun setFavoriteMovie(movie: MovieEntity, state: Boolean) {
@@ -114,6 +130,16 @@ private val localDataSource: LocalDataSource,
 
     override fun getFavoriteMovie(): LiveData<List<MovieEntity>> {
         return localDataSource.getFavoriteMovies()
+    }
+
+    override fun setFavoriteTv(tv: TvShowEntity, state: Boolean) {
+        appExecutors.diskIO().execute {
+            localDataSource.setFavoriteTv(tv,state)
+        }
+    }
+
+    override fun getFavoriteTv(): LiveData<List<TvShowEntity>> {
+        return localDataSource.getFavoriteTv()
     }
 
     override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>> {

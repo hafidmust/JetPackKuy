@@ -58,7 +58,16 @@ class DetailActivity : AppCompatActivity() {
                     })
                 }else if(getType == "tv"){
                     viewModel.setDataTv.observe(this,{
-                        populateDetail(it)
+                        when(it.status){
+                            Status.SUCCESS ->{
+                                if (it.data != null) {
+                                    populateDetailTv(it.data)
+                                    val state = it.data.isFavorite
+                                    setFavoriteState(state)
+                                }
+                            }
+                            Status.ERROR -> Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
                     })
                 }
 
@@ -68,6 +77,8 @@ class DetailActivity : AppCompatActivity() {
             val getType = extras?.getString(EXTRA_TYPE)
             if (getType == "movie"){
                 viewModel.setFavMovie()
+            }else if(getType == "tv"){
+                viewModel.setFavTv()
             }
         }
     }
@@ -96,7 +107,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
     }
-    private fun populateDetail(detail: TvShowEntity?) {
+    private fun populateDetailTv(detail: TvShowEntity?) {
         with(binding){
             contenttitle.text = detail?.originalTitle
             tvcontentdesc.text = detail?.overview

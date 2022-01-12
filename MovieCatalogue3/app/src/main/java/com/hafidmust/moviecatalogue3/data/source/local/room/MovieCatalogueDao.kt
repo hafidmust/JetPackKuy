@@ -4,6 +4,7 @@ import android.graphics.Movie
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
+import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 
 @Dao
 interface MovieCatalogueDao {
@@ -22,6 +23,21 @@ interface MovieCatalogueDao {
 
     @Update
     fun updateMovies(movie : MovieEntity)
+
+    @Query("SELECT * FROM tvshowentities")
+    fun getTvShow(): LiveData<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tvshowentities where isFavorite = 1")
+    fun getFavoriteTv(): LiveData<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tvshowentities where id = :id")
+    fun getDetailTv(id: Int): LiveData<TvShowEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTv(tv: List<TvShowEntity>)
+
+    @Update
+    fun updateTv(tv: TvShowEntity)
 
 
 

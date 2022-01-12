@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.databinding.FragmentTvBinding
 import com.hafidmust.moviecatalogue3.ui.detail.DetailActivity
 import com.hafidmust.moviecatalogue3.viewmodel.ViewModelFactory
+import com.hafidmust.moviecatalogue3.vo.Status
 
 class TvFragment : Fragment() {
 
@@ -43,8 +45,17 @@ class TvFragment : Fragment() {
                 }
             })
             viewModel.getDiscoverTv().observe(viewLifecycleOwner, {tv ->
-                tvAdapter.setMovies(tv)
-                tvAdapter.notifyDataSetChanged()
+                if(tv != null){
+                    when(tv.status){
+                        Status.SUCCESS ->{
+                            fragmentTvBinding.progressBar.visibility = View.GONE
+                            tv.data?.let { tvAdapter.setMovies(it) }
+                            tvAdapter.notifyDataSetChanged()
+                        }
+                        Status.LOADING -> fragmentTvBinding.progressBar.visibility = View.VISIBLE
+                        Status.ERROR -> Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
             with(fragmentTvBinding.rvTvshow){
                 layoutManager = GridLayoutManager(context, 2)
