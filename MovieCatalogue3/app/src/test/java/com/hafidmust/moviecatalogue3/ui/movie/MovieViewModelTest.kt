@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import com.hafidmust.moviecatalogue3.vo.Resource
 
 @RunWith(MockitoJUnitRunner::class)
 class MovieViewModelTest {
@@ -28,7 +29,7 @@ class MovieViewModelTest {
     private lateinit var movieCatalogueRepository: MovieCatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieEntity>>
+    private lateinit var observer: Observer<Resource<List<MovieEntity>>>
 
     @Before
     fun setUp() {
@@ -37,12 +38,12 @@ class MovieViewModelTest {
 
     @Test
     fun getDiscoverMovies() {
-        val dummyMovies = DataDummy.getMovie()
-        val movies = MutableLiveData<List<MovieEntity>>()
+        val dummyMovies = Resource.success(DataDummy.getMovie())
+        val movies = MutableLiveData<Resource<List<MovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(movieCatalogueRepository.getDiscoverMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getDiscoverMovies().value
+        val movieEntities = viewModel.getDiscoverMovies().value?.data
         verify(movieCatalogueRepository).getDiscoverMovies()
         assertNotNull(movieEntities)
         assertEquals(1,movieEntities?.size)

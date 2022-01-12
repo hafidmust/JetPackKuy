@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.hafidmust.moviecatalogue3.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.utils.DataDummy
+import com.hafidmust.moviecatalogue3.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -28,7 +29,7 @@ class TvViewModelTest {
     private lateinit var movieCatalogueRepository: MovieCatalogueRepository
 
     @Mock
-    private lateinit var observer : Observer<List<TvShowEntity>>
+    private lateinit var observer : Observer<Resource<List<TvShowEntity>>>
 
     @Before
     fun setUp() {
@@ -37,12 +38,12 @@ class TvViewModelTest {
 
     @Test
     fun getDiscoverTv() {
-        val dummyTv = DataDummy.getTv()
-        val tvs = MutableLiveData<List<TvShowEntity>>()
+        val dummyTv = Resource.success(DataDummy.getTv())
+        val tvs = MutableLiveData<Resource<List<TvShowEntity>>>()
         tvs.value = dummyTv
 
         `when`(movieCatalogueRepository.getDiscoverTv()).thenReturn(tvs)
-        val tvEntities = viewModel.getDiscoverTv().value
+        val tvEntities = viewModel.getDiscoverTv().value?.data
         verify(movieCatalogueRepository).getDiscoverTv()
         assertNotNull(tvEntities)
         assertEquals(1, tvEntities?.size)
