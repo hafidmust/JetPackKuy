@@ -12,6 +12,7 @@ import com.hafidmust.moviecatalogue3.R
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.databinding.FragmentFavMovieBinding
 import com.hafidmust.moviecatalogue3.ui.detail.DetailActivity
+import com.hafidmust.moviecatalogue3.ui.movie.MovieAdapter
 import com.hafidmust.moviecatalogue3.viewmodel.ViewModelFactory
 
 class FavMovieFragment : Fragment() {
@@ -31,7 +32,7 @@ class FavMovieFragment : Fragment() {
         if (activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[FavMovieViewModel::class.java]
-            val favMovieAdapter =  FavMovieAdapter(object : FavMovieAdapter.ClickListener{
+            val favMovieAdapter =  MovieAdapter(object : MovieAdapter.ClickListener{
                 override fun doClick(item: MovieEntity) {
                     val intent = Intent(
                         activity, DetailActivity::class.java
