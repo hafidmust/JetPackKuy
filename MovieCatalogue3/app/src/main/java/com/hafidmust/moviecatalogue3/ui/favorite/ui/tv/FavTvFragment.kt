@@ -47,8 +47,7 @@ class FavTvFragment : Fragment() {
 
             viewModel.getFavoriteTv().observe(viewLifecycleOwner, {
                 if (it != null){
-                    tvAdapter.setMovies(it)
-                    tvAdapter.notifyDataSetChanged()
+                    tvAdapter.submitList(it)
                 }
             })
 

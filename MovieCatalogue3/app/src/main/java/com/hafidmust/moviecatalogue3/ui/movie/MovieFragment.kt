@@ -50,8 +50,7 @@ class MovieFragment : Fragment() {
                         Status.LOADING -> fragmentMovieBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentMovieBinding.progressBar.visibility = View.GONE
-                            movies.data?.let { movieAdapter.setMovies(it) }
-                            movieAdapter.notifyDataSetChanged()
+                            movieAdapter.submitList(movies.data)
                         }
                         Status.ERROR->{
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()

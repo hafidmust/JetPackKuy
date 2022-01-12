@@ -2,19 +2,17 @@ package com.hafidmust.moviecatalogue3.ui.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hafidmust.moviecatalogue3.BuildConfig
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.databinding.ListItemsBinding
 
-class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(val clickListener : ClickListener) : PagedListAdapter<MovieEntity, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {
     private var listMovies = ArrayList<MovieEntity>()
 
-    fun setMovies(movies : List<MovieEntity>){
-        this.listMovies.clear()
-        this.listMovies.addAll(movies)
-    }
     inner class ViewHolder(private val binding : ListItemsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movies : MovieEntity){
             with(binding){
@@ -39,12 +37,25 @@ class MovieAdapter(val clickListener : ClickListener) : RecyclerView.Adapter<Mov
     }
 
     override fun onBindViewHolder(holder: MovieAdapter.ViewHolder, position: Int) {
-        val movie = listMovies[position]
-        holder.bind(movie)
+        val movie = getItem(position)
+        if (movie != null){
+            holder.bind(movie)
+        }
+
     }
 
-    override fun getItemCount(): Int {
-        return listMovies.size
+
+
+    companion object{
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>(){
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
 

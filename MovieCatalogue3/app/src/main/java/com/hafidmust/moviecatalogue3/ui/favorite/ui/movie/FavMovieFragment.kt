@@ -46,8 +46,7 @@ class FavMovieFragment : Fragment() {
 
             viewModel.getFavoriteMovies().observe(viewLifecycleOwner,{favMovies->
                 if (favMovies != null){
-                    favMovieAdapter.setMovies(favMovies)
-                    favMovieAdapter.notifyDataSetChanged()
+                    favMovieAdapter.submitList(favMovies)
                 }
             })
             with(binding.rvFavoritemovie){

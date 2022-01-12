@@ -49,8 +49,7 @@ class TvFragment : Fragment() {
                     when(tv.status){
                         Status.SUCCESS ->{
                             fragmentTvBinding.progressBar.visibility = View.GONE
-                            tv.data?.let { tvAdapter.setMovies(it) }
-                            tvAdapter.notifyDataSetChanged()
+                            tvAdapter.submitList(tv.data)
                         }
                         Status.LOADING -> fragmentTvBinding.progressBar.visibility = View.VISIBLE
                         Status.ERROR -> Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
