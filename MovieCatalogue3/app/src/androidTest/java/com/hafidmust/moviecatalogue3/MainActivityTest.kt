@@ -17,8 +17,6 @@ import org.junit.Test
 class MainActivityTest {
     private val dummyMovies = DataDummy.getMovie()
     private val dummyTv = DataDummy.getTv()
-    private val dummyDetailMovie = DataDummy.getDetailMovie()
-    private val dummyDetailTv = DataDummy.getDetailTv()
 
     @Before
     fun setUp() {
@@ -43,19 +41,10 @@ class MainActivityTest {
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
             click()))
         onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
-        onView(withId(R.id.contenttitle)).check(matches(withText(dummyDetailMovie.originalTitle)))
-
         onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
-        onView(withId(R.id.contenttvvote)).check(matches(withText(dummyDetailMovie.voteAverage.toString())))
-
         onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyDetailMovie.overview)))
-
         onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.contentrelease)).check(matches(withText(dummyDetailMovie.releaseDate)))
-
         onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
-
     }
 
     @Test
@@ -71,17 +60,60 @@ class MainActivityTest {
         onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
             click()))
         onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
-        onView(withId(R.id.contenttitle)).check(matches(withText(dummyDetailTv.originalTitle)))
-
         onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
-        onView(withId(R.id.contenttvvote)).check(matches(withText(dummyDetailTv.voteAverage.toString())))
-
         onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvcontentdesc)).check(matches(withText(dummyDetailTv.overview)))
-
         onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.contentrelease)).check(matches(withText(dummyDetailTv.releaseDate)))
-
         onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun loadFavMovie(){
+        onView(withId(R.id.action_to_favorite)).perform(click())
+        onView(withId(R.id.rv_favoritemovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_favoritemovie)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dummyMovies.size
+            )
+        )
+    }
+
+    @Test
+    fun loadDetailFavMovies(){
+        onView(withId(R.id.action_to_favorite)).perform(click())
+        onView(withId(R.id.rv_favoritemovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_favoritemovie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
+            click()))
+        onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
+        onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadFavTv(){
+        onView(withId(R.id.action_to_favorite)).perform(click())
+        onView(withText("Tv Show")).perform(click())
+        onView(withId(R.id.rv_favoritetv)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_favoritetv)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dummyMovies.size
+            )
+        )
+    }
+
+    @Test
+    fun loadDetailFavTv(){
+        onView(withId(R.id.action_to_favorite)).perform(click())
+        onView(withText("Tv Show")).perform(click())
+        onView(withId(R.id.rv_favoritetv)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
+            click()))
+        onView(withId(R.id.contenttitle)).check(matches(isDisplayed()))
+        onView(withId(R.id.contenttvvote)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvcontentdesc)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentrelease)).check(matches(isDisplayed()))
+        onView(withId(R.id.contentiamgeposter)).check(matches(isDisplayed()))
+    }
+
+
 }
