@@ -3,6 +3,7 @@ package com.hafidmust.moviecatalogue3.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.hafidmust.moviecatalogue3.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue3.data.source.local.entity.MovieEntity
 import com.hafidmust.moviecatalogue3.utils.DataDummy
@@ -29,7 +30,10 @@ class MovieViewModelTest {
     private lateinit var movieCatalogueRepository: MovieCatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<MovieEntity>>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -38,17 +42,18 @@ class MovieViewModelTest {
 
     @Test
     fun getDiscoverMovies() {
-        val dummyMovies = Resource.success(DataDummy.getMovie())
-        val movies = MutableLiveData<Resource<List<MovieEntity>>>()
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(1)
+        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
         movies.value = dummyMovies
 
-        `when`(movieCatalogueRepository.getDiscoverMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getDiscoverMovies().value?.data
-        verify(movieCatalogueRepository).getDiscoverMovies()
+        `when`(movieCatalogueRepository.getDiscoverMovies("NEWEST")).thenReturn(movies)
+        val movieEntities = viewModel.getDiscoverMovies("NEWEST").value?.data
+        verify(movieCatalogueRepository).getDiscoverMovies("NEWEST")
         assertNotNull(movieEntities)
         assertEquals(1,movieEntities?.size)
 
-        viewModel.getDiscoverMovies().observeForever(observer)
+        viewModel.getDiscoverMovies("NEWEST").observeForever(observer)
         verify(observer).onChanged(dummyMovies)
 
     }

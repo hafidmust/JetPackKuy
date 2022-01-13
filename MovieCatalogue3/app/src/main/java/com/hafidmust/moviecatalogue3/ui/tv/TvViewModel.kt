@@ -9,6 +9,6 @@ import com.hafidmust.moviecatalogue3.vo.Resource
 
 class TvViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModel() {
 
-    fun getDiscoverTv(): LiveData<Resource<PagedList<TvShowEntity>>> = movieCatalogueRepository.getDiscoverTv()
+    fun getDiscoverTv(sort : String): LiveData<Resource<PagedList<TvShowEntity>>> = movieCatalogueRepository.getDiscoverTv(sort)
 
 }

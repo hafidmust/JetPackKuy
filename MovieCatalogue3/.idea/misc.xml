@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/list_items.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/menu/menu_to_fav.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/sort.xml" value="0.1" />
       </map>
     </option>
   </component>

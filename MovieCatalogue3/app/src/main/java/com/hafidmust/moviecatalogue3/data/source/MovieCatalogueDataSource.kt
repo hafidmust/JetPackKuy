@@ -9,9 +9,9 @@ import com.hafidmust.moviecatalogue3.vo.Resource
 
 
 interface MovieCatalogueDataSource {
-    fun getDiscoverMovies() : LiveData<Resource<PagedList<MovieEntity>>>
+    fun getDiscoverMovies(sort : String) : LiveData<Resource<PagedList<MovieEntity>>>
     fun getDetailMovie(movieId : Int) : LiveData<Resource<MovieEntity>>
-    fun getDiscoverTv() : LiveData<Resource<PagedList<TvShowEntity>>>
+    fun getDiscoverTv(sort : String) : LiveData<Resource<PagedList<TvShowEntity>>>
     fun getDetailTvShow(tvId : Int) : LiveData<Resource<TvShowEntity>>
     fun setFavoriteMovie(movie: MovieEntity, state: Boolean)
     fun getFavoriteMovie(): LiveData<PagedList<MovieEntity>>

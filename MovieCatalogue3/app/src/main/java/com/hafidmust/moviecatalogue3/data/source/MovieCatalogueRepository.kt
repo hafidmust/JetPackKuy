@@ -28,7 +28,7 @@ private val localDataSource: LocalDataSource,
             }
     }
 
-    override fun getDiscoverMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
+    override fun getDiscoverMovies(sort : String): LiveData<Resource<PagedList<MovieEntity>>> {
         return object : NetworkBoundResource<PagedList<MovieEntity>, List<ResultsItem>>(appExecutors){
             override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
                 val config = PagedList.Config.Builder()
@@ -36,7 +36,7 @@ private val localDataSource: LocalDataSource,
                     .setInitialLoadSizeHint(4)
                     .setPageSize(4)
                     .build()
-                return LivePagedListBuilder(localDataSource.getAllMovies(), config).build()
+                return LivePagedListBuilder(localDataSource.getAllMovies(sort), config).build()
             }
 
             override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean {
@@ -66,7 +66,7 @@ private val localDataSource: LocalDataSource,
             }
         }.asLiveData()
     }
-    override fun getDiscoverTv(): LiveData<Resource<PagedList<TvShowEntity>>> {
+    override fun getDiscoverTv(sort : String): LiveData<Resource<PagedList<TvShowEntity>>> {
         return object : NetworkBoundResource<PagedList<TvShowEntity>, List<ResultsItemTv>>(appExecutors){
             override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
                 val config = PagedList.Config.Builder()
@@ -74,7 +74,7 @@ private val localDataSource: LocalDataSource,
                     .setInitialLoadSizeHint(4)
                     .setPageSize(4)
                     .build()
-                return LivePagedListBuilder(localDataSource.getAllTv(), config).build()
+                return LivePagedListBuilder(localDataSource.getAllTv(sort), config).build()
             }
 
             override fun shouldFetch(data: PagedList<TvShowEntity>?): Boolean {

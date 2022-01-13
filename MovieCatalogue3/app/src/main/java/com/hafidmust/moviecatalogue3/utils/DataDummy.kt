@@ -318,6 +318,19 @@ object DataDummy {
             )
         )
     }
+    fun getFavTv(): List<TvShowEntity>{
+        return  listOf(
+            TvShowEntity(
+                id = 1,
+                posterPath = "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+                originalTitle = "Cobra Kai",
+                overview = "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+                releaseDate = "2021-01-01",
+                voteAverage = 8.1,
+                isFavorite = true
+            )
+        )
+    }
 
     fun getTv(): List<TvShowEntity> {
         return listOf(

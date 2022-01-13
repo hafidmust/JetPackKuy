@@ -14,6 +14,8 @@ import com.hafidmust.moviecatalogue3.databinding.ActivityMainBinding
 
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.hafidmust.moviecatalogue3.ui.favorite.FavoriteActivity
 
 
@@ -26,31 +28,31 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_movie, R.id.navigation_tv_show
+        val bottomNavigationView: BottomNavigationView = binding.navView
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        if (bottomNavigationView != null){
+            NavigationUI.setupWithNavController(
+                bottomNavigationView, navHostFragment.navController
             )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_to_fav, menu)
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_to_favorite){
-            startActivity(Intent(this, FavoriteActivity::class.java))
         }
-        return true
     }
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
+
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.menu_to_fav, menu)
+//        //getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.action_to_favorite){
+//            startActivity(Intent(this, FavoriteActivity::class.java))
+//        }
+//        return true
+//    }
 }

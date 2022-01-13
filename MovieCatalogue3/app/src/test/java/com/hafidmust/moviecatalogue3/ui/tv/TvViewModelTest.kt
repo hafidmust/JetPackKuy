@@ -3,6 +3,7 @@ package com.hafidmust.moviecatalogue3.ui.tv
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.hafidmust.moviecatalogue3.data.source.MovieCatalogueRepository
 import com.hafidmust.moviecatalogue3.data.source.local.entity.TvShowEntity
 import com.hafidmust.moviecatalogue3.utils.DataDummy
@@ -29,7 +30,10 @@ class TvViewModelTest {
     private lateinit var movieCatalogueRepository: MovieCatalogueRepository
 
     @Mock
-    private lateinit var observer : Observer<Resource<List<TvShowEntity>>>
+    private lateinit var observer : Observer<Resource<PagedList<TvShowEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -38,17 +42,17 @@ class TvViewModelTest {
 
     @Test
     fun getDiscoverTv() {
-        val dummyTv = Resource.success(DataDummy.getTv())
-        val tvs = MutableLiveData<Resource<List<TvShowEntity>>>()
+        val dummyTv = Resource.success(pagedList)
+        val tvs = MutableLiveData<Resource<PagedList<TvShowEntity>>>()
         tvs.value = dummyTv
 
-        `when`(movieCatalogueRepository.getDiscoverTv()).thenReturn(tvs)
-        val tvEntities = viewModel.getDiscoverTv().value?.data
-        verify(movieCatalogueRepository).getDiscoverTv()
+        `when`(movieCatalogueRepository.getDiscoverTv("NEWEST")).thenReturn(tvs)
+        val tvEntities = viewModel.getDiscoverTv("NEWEST").value?.data
+        verify(movieCatalogueRepository).getDiscoverTv("NEWEST")
         assertNotNull(tvEntities)
-        assertEquals(1, tvEntities?.size)
+        assertEquals(0, tvEntities?.size)
 
-        viewModel.getDiscoverTv().observeForever(observer)
+        viewModel.getDiscoverTv("NEWEST").observeForever(observer)
         verify(observer).onChanged(dummyTv)
     }
 }
